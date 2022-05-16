@@ -17,3 +17,4 @@ footer with impressum etc...
 Update button in sidebar + automatic updates
 REST Docs updaten + vervollstaändigen
 Routing implementieren
+In rest api eine update token methode einbauen, die einen gültigen token bekommt und einen neuen zurücksendet 

@@ -1,18 +1,23 @@
 <script lang="ts">
+import axios from "axios";
 import { defineComponent } from "vue";
 import { store } from "../store";
 export default defineComponent({
     data() {
         return {
             store,
-            passwd: String,
-            username: String,
+            password: "",
+            username: "",
+            tmp: "",
         };
     },
     methods: {
-        onSubmit() {
-            // make api call to /login/access-token
+        onLogin() {
+            store.getToken(this.username, this.password);
         },
+    },
+    created() {
+        store.getToken(this.username, this.password);
     },
 });
 </script>
@@ -20,10 +25,11 @@ export default defineComponent({
 <template>
     <div>
         <h2>Login</h2>
-        <form @submit.prevent="onSubmit">
-            <input type="text" placeholder="Username" v-model="passwd" />
-            <input type="text" placeholder="Password" />
-            <button>Submit</button>
+        <h3>Enter your login credentials.</h3>
+        <form @submit.prevent>
+            <input type="text" placeholder="Username" v-model="username" />
+            <input type="text" placeholder="Password" v-model="password" />
+            <button @click="onLogin">Login</button>
             <button>Register</button>
             <!-- ONLY FOR DEBUG -->
             <p>ONLY FOR DEBUG: {{ store.token }}</p>
