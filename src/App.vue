@@ -4,6 +4,11 @@ import DroneGrid from "./components/DroneGrid.vue";
 import Login from "./components/Login.vue";
 
 export default defineComponent({
+    data() {
+        return {
+            token: String,
+        };
+    },
     components: { DroneGrid, Login },
 });
 </script>
