@@ -1,9 +1,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import DroneGrid from "./components/DroneGrid.vue";
+import Login from "./components/Login.vue";
 
 export default defineComponent({
-    components: { DroneGrid },
+    components: { DroneGrid, Login },
 });
 </script>
 
@@ -17,5 +18,6 @@ export default defineComponent({
         <h1 class="text-2xl font-sans text-slate-700">webtool</h1>
     </nav>
 
-    <DroneGrid />
+    <!-- <DroneGrid /> -->
+    <Login />
 </template>
