@@ -17,9 +17,6 @@ export default defineComponent({
             store.getToken(this.username, this.password);
         },
     },
-    created() {
-        store.getToken(this.username, this.password);
-    },
     components: {
         Button,
     },
