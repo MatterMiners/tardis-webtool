@@ -3,7 +3,7 @@ import axios from "axios"
 
 export const store = reactive({
     token: "",
-    async getToken(user: string, passwd: string) {
+    getToken(user: string, passwd: string) {
         axios.post('/api/tardis/login/access-token',
             `password=${passwd}&username=${user}`,
             {
@@ -14,6 +14,5 @@ export const store = reactive({
             })
             .then(resp => this.token = resp.data.access_token)
             .catch(err => console.error("Error:", err.message))
-            .then(() => { console.log("Done") })
     }
 })
