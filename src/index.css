@@ -15,4 +15,8 @@
     body {
         @apply bg-slate-50;
     }
+
+    html {
+        font-family: "Fira Sans", sans-serif;
+    }
 }
