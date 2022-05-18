@@ -23,7 +23,7 @@ export default defineComponent({
             />
             <title>Tardis Webtool</title>
         </head>
-        <body>
+        <body class="bg-slate-50 min-h-screen">
             <nav
                 class="flex p-3 mb-2 bg-white border-none shadow-md items-center"
             >
@@ -35,8 +35,10 @@ export default defineComponent({
                 <h1 class="text-2xl text-slate-700">webtool</h1>
             </nav>
 
-            <!-- <DroneGrid /> -->
-            <Login />
+            <main class="flex justify-center">
+                <!-- <DroneGrid /> -->
+                <Login class="mt-20" />
+            </main>
         </body>
     </html>
 </template>
