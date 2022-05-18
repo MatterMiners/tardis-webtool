@@ -35,8 +35,8 @@ export default defineComponent({
                 <h1 class="text-2xl text-slate-700">webtool</h1>
             </nav>
 
-            <!-- <DroneGrid /> -->
-            <Login />
+            <DroneGrid />
+            <!-- <Login /> -->
         </body>
     </html>
 </template>
