@@ -46,10 +46,7 @@ export default defineComponent({
                         {{ droneData.drone_uuid }}
                     </h2>
 
-                    <h3 class="text-lg">
-                        State:
-                        <span class="font-semibold">{{ droneData.state }}</span>
-                    </h3>
+                    <h3 class="font-semibold mt-1">{{ droneData.state }}</h3>
                 </div>
                 <PowerOffButton />
             </div>
