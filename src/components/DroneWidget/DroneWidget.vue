@@ -1,9 +1,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import type { PropType } from "vue";
-import type { DroneData } from "../main";
-import Button from "./util/Button.vue";
-import PowerOffButton from "./util/PowerOffButton.vue";
+import type { DroneData } from "@/main";
+import Button from "../util/Button.vue";
+import PowerOffButton from "../util/PowerOffButton.vue";
 import DroneWidgetTable from "./DroneWidgetTable.vue";
 
 export default defineComponent({

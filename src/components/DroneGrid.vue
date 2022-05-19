@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import DroneWidget from "./DroneWidget.vue";
+import DroneWidget from "./DroneWidget/DroneWidget.vue";
 import type { DroneData } from "../main";
 
 var id = 0;
