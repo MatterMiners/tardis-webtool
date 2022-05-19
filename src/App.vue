@@ -2,6 +2,7 @@
 import { defineComponent } from "vue";
 import DroneGrid from "./components/DroneGrid.vue";
 import Login from "./components/Login.vue";
+import FilterBar from "./components/FilterBar.vue";
 
 export default defineComponent({
     data() {
@@ -9,7 +10,7 @@ export default defineComponent({
             token: String,
         };
     },
-    components: { DroneGrid, Login },
+    components: { DroneGrid, Login, FilterBar },
 });
 </script>
 
@@ -25,9 +26,7 @@ export default defineComponent({
         </head>
 
         <body class="bg-slate-50 min-h-screen">
-            <nav
-                class="flex p-3 mb-2 bg-white border-none shadow-md items-center"
-            >
+            <nav class="flex p-3 bg-white border-b shadow-md items-center">
                 <img
                     src="./assets/TARDIS_logo.svg"
                     alt="Tardis Logo"
@@ -36,7 +35,8 @@ export default defineComponent({
                 <h1 class="text-2xl text-slate-700">webtool</h1>
             </nav>
 
-            <main class="flex justify-center">
+            <main class="flex items-center flex-col">
+                <FilterBar />
                 <DroneGrid />
                 <!-- <Login class="mt-20" /> -->
             </main>
