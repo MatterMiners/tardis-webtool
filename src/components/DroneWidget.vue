@@ -22,14 +22,14 @@ export default defineComponent({
             {{ droneData?.drone_uuid }}
         </h2>
 
-        <h3 class="text-lg border-b-2 p-1 m-1">
+        <h3 class="text-lg my-2">
             State:
             <span class="font-semibold">{{ droneData?.state }}</span>
         </h3>
 
         <DroneWidgetTable :droneData="droneData" />
 
-        <div class="flex mx-2 justify-between">
+        <div class="flex mx-2 mt-1 justify-between">
             <Button label="Edit" class="px-7 text-lg" />
             <PowerOffButton />
         </div>
