@@ -19,12 +19,12 @@ export default defineComponent({
         class="flex flex-col justify-between bg-white shadow-md rounded-md m-3 p-5 min-w-fit max-w-fit"
     >
         <h2 class="text-xl font-bold text-sky-700">
-            {{ droneData?.drone_uuid }}
+            {{ droneData.drone_uuid }}
         </h2>
 
         <h3 class="text-lg my-2">
             State:
-            <span class="font-semibold">{{ droneData?.state }}</span>
+            <span class="font-semibold">{{ droneData.state }}</span>
         </h3>
 
         <DroneWidgetTable :droneData="droneData" />
