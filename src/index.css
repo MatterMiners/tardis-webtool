@@ -14,6 +14,14 @@
     .nofocusring {
         @apply focus:ring-0 focus:ring-offset-0;
     }
+
+    .myth {
+        @apply border-b border-slate-300 bg-white font-normal p-1 text-slate-500;
+    }
+
+    .mythbottom {
+        @apply border-slate-300 bg-white font-normal p-1 text-slate-500;
+    }
 }
 
 @layer base {
