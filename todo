@@ -1,22 +1,24 @@
-drone state reactive color
-power off button : shut down drone
-Edit button: Update hook to api
-More Button: Normal nur das wichtigste darstellen und die sperrigeren Daten hinter einem more button verstecken der weiter daten anzeigt und mehr recourcen pulled
-Welches feld soll hervorgehoben werden
-Drone nach uuid suchen
-Vielleicht filter implementieren (nach site, updated befor etc.)
-Welche drone states gibt es?
-Dropdown mit allen dronen per ajax ziehen.
-Dronen die man beobachten möchte in ein grid hinzufügen?
-Drone UUID verlinken um mehr informationen zu bekommen
-In Mobile view können die Dronen im Grid minimiert werden
-Hover or click on table cell to get more info about prop
-Mobile view
-Table verhält sich blöd
-footer with impressum etc...
-Update button in sidebar + automatic updates
-REST Docs updaten + vervollstaändigen
-Routing implementieren
-In rest api eine update token methode einbauen, die einen gültigen token bekommt und einen neuen zurücksendet 
-REPLACE Drone TABLE WITH v-for
-Error handling for apis 
+- [ ] drone state reactive color
+- [ ] power off button : shut down drone
+- [ ] Edit button: Update hook to api
+- [ ] More Button: Normal nur das wichtigste darstellen und die sperrigeren Daten hinter einem more button verstecken der weiter daten anzeigt und mehr recourcen pulled
+- [ ] Welches feld soll hervorgehoben werden
+- [ ] Drone nach uuid suchen
+- [ ] Vielleicht filter implementieren (nach site, updated befor etc.)
+- [ ] Welche drone states gibt es?
+- [ ] Dropdown mit allen dronen per ajax ziehen.
+- [ ] Dronen die man beobachten möchte in ein grid hinzufügen?
+- [ ] Drone UUID verlinken um mehr informationen zu bekommen
+- [ ] In Mobile view können die Dronen im Grid minimiert werden
+- [ ] Hover or click on table cell to get more info about prop
+- [ ] Mobile view
+- [ ] Table verhält sich blöd
+- [ ] footer with impressum etc...
+- [ ] Update button in sidebar + automatic updates
+- [ ] REST Docs updaten + vervollstaändigen
+- [ ] Routing implementieren
+- [ ] In rest api eine update token methode einbauen, die einen gültigen token bekommt und einen neuen zurücksendet 
+- [ ] REPLACE Drone TABLE WITH v-for
+- [ ] Error handling for apis
+- [ ] Multiple Tabs in side bar: Widget view (4 squares), Table view with summarization (table icon), Global settings (cog icon) 
+- [ ] Maybe find better solution to "view more" Widget that fixed width

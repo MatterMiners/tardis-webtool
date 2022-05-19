@@ -18,20 +18,22 @@ export default defineComponent({
     <div
         class="flex flex-col justify-between bg-white shadow-md rounded-md m-3 p-5 min-w-fit max-w-fit"
     >
-        <h2 class="text-xl font-bold text-sky-700">
-            {{ droneData.drone_uuid }}
-        </h2>
+        <div class="flex items-center justify-between mb-2">
+            <div class="text-left">
+                <h2 class="text-xl font-bold text-sky-700">
+                    {{ droneData.drone_uuid }}
+                </h2>
 
-        <h3 class="text-lg my-2">
-            State:
-            <span class="font-semibold">{{ droneData.state }}</span>
-        </h3>
+                <h3 class="text-lg">
+                    State:
+                    <span class="font-semibold">{{ droneData.state }}</span>
+                </h3>
+            </div>
+            <PowerOffButton />
+        </div>
 
         <DroneWidgetTable :droneData="droneData" />
 
-        <div class="flex mx-2 mt-1 justify-between">
-            <Button label="Edit" class="px-7 text-lg" />
-            <PowerOffButton />
-        </div>
+        <Button label="Edit" class="px-7 mt-4 text-lg" />
     </div>
 </template>
