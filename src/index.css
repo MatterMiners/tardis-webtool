@@ -8,7 +8,7 @@
     }
 
     .myinput {
-        @apply bg-slate-50 shadow-sm p-2 m-1 nofocusring placeholder:text-sm focus:border-blue-400 transition duration-150 caret-slate-400 rounded-md hover:border-slate-300 border-slate-200 border;
+        @apply bg-slate-50 shadow-sm p-2 m-1 nofocusring placeholder:text-sm focus:border-blue-400 transition duration-150 caret-slate-400 rounded hover:border-slate-300 border-slate-200 border;
     }
 
     .nofocusring {
@@ -17,10 +17,6 @@
 }
 
 @layer base {
-    body {
-        @apply bg-slate-50;
-    }
-
     html {
         font-family: "Fira Sans", sans-serif;
     }

@@ -17,9 +17,6 @@ export default defineComponent({
             store.getToken(this.username, this.password);
         },
     },
-    created() {
-        store.getToken(this.username, this.password);
-    },
     components: {
         Button,
     },
@@ -53,6 +50,4 @@ export default defineComponent({
             </div>
         </form>
     </div>
-    <!-- ONLY FOR DEBUG -->
-    <p>ONLY FOR DEBUG: {{ store.token }}</p>
 </template>
