@@ -11,11 +11,17 @@ export default defineComponent({
         droneData: { type: Object as PropType<DroneData>, required: true },
     },
     components: { Button, PowerOffButton, DroneWidgetTable },
+    data() {
+        return {
+            collapse: true,
+        };
+    },
 });
 </script>
 
 <template>
     <div
+        :class="{ 'overflow-hidden h-24': collapse }"
         class="flex flex-col justify-between bg-white shadow-md rounded-md m-3 p-5 min-w-fit max-w-fit"
     >
         <div class="flex items-center justify-between mb-2">
@@ -32,8 +38,9 @@ export default defineComponent({
             <PowerOffButton />
         </div>
 
-        <DroneWidgetTable :droneData="droneData" />
-
-        <Button label="Edit" class="px-7 mt-4 text-lg" />
+        <div>
+            <DroneWidgetTable :droneData="droneData" />
+            <Button label="Edit" class="px-7 mt-4 text-lg" />
+        </div>
     </div>
 </template>
