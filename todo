@@ -22,3 +22,6 @@
 - [ ] Error handling for apis
 - [ ] Multiple Tabs in side bar: Widget view (4 squares), Table view with summarization (table icon), Global settings (cog icon) 
 - [ ] Maybe find better solution to "view more" Widget that fixed width
+- [ ] Upper right: Yellow reload button
+- [ ] Add font-awsome icon lib
+- [ ] refactor all buttons so color can be passed as attribute
