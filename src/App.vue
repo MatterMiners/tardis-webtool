@@ -16,29 +16,25 @@ export default defineComponent({
 <template>
     <!DOCTYPE html>
     <html lang="en">
-        <head>
-            <link
-                href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400&display=swap"
-                rel="stylesheet"
-            />
-            <title>Tardis Webtool</title>
-        </head>
-        <body class="bg-slate-50 min-h-screen">
-            <nav
-                class="flex p-3 mb-2 bg-white border-none shadow-md items-center"
-            >
-                <img
-                    src="./assets/TARDIS_logo.svg"
-                    alt="Tardis Logo"
-                    class="h-10 mr-3"
-                />
-                <h1 class="text-2xl text-slate-700">webtool</h1>
-            </nav>
 
-            <main class="flex justify-center">
-                <!-- <DroneGrid /> -->
-                <Login class="mt-20" />
-            </main>
-        </body>
+    <head>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400&display=swap"
+            rel="stylesheet" />
+        <title>Tardis Webtool</title>
+    </head>
+
+    <body class="bg-slate-50 min-h-screen">
+        <nav class="flex p-3 mb-2 bg-white border-none shadow-md items-center">
+            <img src="./assets/TARDIS_logo.svg" alt="Tardis Logo" class="h-10 mr-3" />
+            <h1 class="text-2xl text-slate-700">webtool</h1>
+        </nav>
+
+        <main class="flex justify-center">
+            <DroneGrid />
+            <!-- <Login class="mt-20" /> -->
+        </main>
+    </body>
+
     </html>
 </template>
