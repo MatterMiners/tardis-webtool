@@ -23,7 +23,7 @@
         @apply border-slate-300 bg-white font-normal p-1 text-slate-500;
     }
 
-    // The following classes are added, to enable dynamic button color.
+    /*  The following classes are added, to enable dynamic button color. */
     .redbtn {
         @apply bg-red-500 hover:bg-red-600 shadow-red-500/50;
     }
