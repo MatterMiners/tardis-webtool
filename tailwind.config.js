@@ -7,5 +7,6 @@ module.exports = {
             },
         },
     },
+    safelist: ["greenbtn", "bluebtn", "redbtn", "yellowbtn"],
     plugins: [require("@tailwindcss/forms")],
 };
