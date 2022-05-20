@@ -21,3 +21,8 @@ using conventional commits 1.0.0 for documentation
 ## Setup
 
 Change the api server in vue config to the real url
+npm install
+npm run dev
+
+## UX Design
+

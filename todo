@@ -26,3 +26,4 @@
 - [ ] Add font-awsome icon lib
 - [ ] refactor all buttons so color can be passed as attribute
 - [ ] Proper api call error handling
+- [ ] Automatic periodic reload of droneData
