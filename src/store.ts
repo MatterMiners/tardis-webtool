@@ -1,9 +1,12 @@
 import { reactive } from "vue";
 import axios from "axios";
+import { parseJwt, type AccessTokenClaim } from "./util"
+
 
 export const authStore = reactive({
     token: "",
     error: "",
+    jwtclaim: {} as AccessTokenClaim,
     getToken(user: string, passwd: string) {
         axios
             .post(
@@ -16,10 +19,21 @@ export const authStore = reactive({
                     },
                 }
             )
-            .then((resp) => (this.token = resp.data.access_token))
+            .then((resp) => {
+                this.token = resp.data.access_token
+                this.jwtclaim = parseJwt(this.token)
+            })
             .catch((err) => {
                 console.error("Error:", err.message);
                 this.error = err.message;
             });
     },
+    getScopes(): string[] | null {
+        try {
+            return this.jwtclaim.scopes
+        } catch (error) {
+            console.log(error);
+            return null
+        }
+    }
 });

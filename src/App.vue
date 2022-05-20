@@ -24,7 +24,7 @@ export default defineComponent({
             class="h-10 mr-3"
         />
         <h1 class="text-2xl text-slate-700">webtool</h1>
-        <nav class="ml-auto">NAV: TODO k</nav>
+        <nav class="ml-auto mr-2">NAV: TODO k</nav>
         <ColoredSlotButton btnColorClass="yellowbtn">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -40,8 +40,8 @@ export default defineComponent({
 
     <main class="flex items-center flex-col h-full">
         <!-- <FilterBar />
-                <DroneGrid /> -->
-        <!-- <Login class="mt-20" /> -->
-        <TableView />
+        <DroneGrid /> -->
+        <Login class="mt-20" />
+        <!-- <TableView /> -->
     </main>
 </template>
