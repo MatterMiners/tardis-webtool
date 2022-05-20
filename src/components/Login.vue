@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { authStore } from "../store";
-import Button from "./util/Button.vue";
+import ColoredTextButton from "./util/ColoredTextButton.vue";
 
 export default defineComponent({
     data() {
@@ -18,7 +18,7 @@ export default defineComponent({
         },
     },
     components: {
-        Button,
+        ColoredTextButton,
     },
 });
 </script>
@@ -45,8 +45,17 @@ export default defineComponent({
                 v-model="password"
             />
             <div class="flex justify-center">
-                <Button @click="onLogin" label="Login" class="px-4" />
-                <Button label="Register" class="px-4" />
+                <ColoredTextButton
+                    @click="onLogin"
+                    label="Login"
+                    btnColorClass="bluebtn"
+                    class="px-4"
+                />
+                <ColoredTextButton
+                    label="Register"
+                    btnColorClass="bluebtn"
+                    class="px-4"
+                />
             </div>
         </form>
     </div>

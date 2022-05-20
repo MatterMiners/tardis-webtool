@@ -2,15 +2,19 @@
 import { defineComponent } from "vue";
 import type { PropType } from "vue";
 import type { DroneData } from "@/main";
-import Button from "../util/Button.vue";
-import PowerOffButton from "../util/PowerOffButton.vue";
+import ColoredTextButton from "../util/ColoredTextButton.vue";
 import DroneWidgetTable from "./DroneWidgetTable.vue";
+import ColoredSlotButton from "../util/ColoredSlotButton.vue";
 
 export default defineComponent({
     props: {
         droneData: { type: Object as PropType<DroneData>, required: true },
     },
-    components: { Button, PowerOffButton, DroneWidgetTable },
+    components: {
+        ColoredTextButton,
+        DroneWidgetTable,
+        ColoredSlotButton,
+    },
     data() {
         return {
             collapse: true,
@@ -52,7 +56,11 @@ export default defineComponent({
             </div>
 
             <DroneWidgetTable :droneData="droneData" />
-            <Button label="Edit" class="mt-5 text-lg" />
+            <ColoredTextButton
+                label="Edit"
+                btnColorClass="bluebtn"
+                class="mt-5 text-lg"
+            />
         </div>
     </div>
 </template>
