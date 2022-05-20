@@ -49,12 +49,12 @@ export default defineComponent({
                     @click="onLogin"
                     label="Login"
                     btnColorClass="bluebtn"
-                    class="px-4"
+                    class="px-4 mt-3 mx-2"
                 />
                 <ColoredTextButton
                     label="Register"
                     btnColorClass="bluebtn"
-                    class="px-4"
+                    class="px-4 mt-3 mx-2"
                 />
             </div>
         </form>
