@@ -14,6 +14,8 @@ export default defineComponent({
     },
     methods: {
         onLogin() {
+            console.log("LOGIN");
+
             authStore.requestToken(this.username, this.password);
         },
     },
@@ -40,7 +42,7 @@ export default defineComponent({
             />
             <input
                 class="myinput"
-                type="text"
+                type="password"
                 placeholder="Password"
                 v-model="password"
             />
