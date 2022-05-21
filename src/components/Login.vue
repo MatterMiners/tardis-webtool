@@ -14,8 +14,6 @@ export default defineComponent({
     },
     methods: {
         onLogin() {
-            console.log("LOGIN");
-
             authStore.requestToken(this.username, this.password);
         },
     },
