@@ -7,7 +7,7 @@ export const authStore = reactive({
     token: "",
     error: "",
     jwtclaim: {} as AccessTokenClaim,
-    getToken(user: string, passwd: string) {
+    requestToken(user: string, passwd: string) {
         axios
             .post(
                 "/api/tardis/login/access-token",

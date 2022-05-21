@@ -14,7 +14,7 @@ export default defineComponent({
     },
     methods: {
         onLogin() {
-            authStore.getToken(this.username, this.password);
+            authStore.requestToken(this.username, this.password);
         },
     },
     components: {
