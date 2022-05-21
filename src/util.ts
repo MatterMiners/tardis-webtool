@@ -14,3 +14,6 @@ export interface AccessTokenClaim {
     scopes: string[]
     sub: string
 }
+
+export const getScope = "resources:get"
+export const putScope = "resources:put"
