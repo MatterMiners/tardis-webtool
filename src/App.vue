@@ -5,14 +5,29 @@ import Login from "./components/Login.vue";
 import FilterBar from "./components/FilterBar.vue";
 import ColoredSlotButton from "./components/util/ColoredSlotButton.vue";
 import TableView from "./components/TableView.vue";
+import { droneStore, authStore } from "./store";
+import { droneReloadTime } from "./util";
 
 export default defineComponent({
     data() {
         return {
-            token: String,
+            droneStore,
         };
     },
     components: { DroneGrid, Login, FilterBar, ColoredSlotButton, TableView },
+    methods: {
+        refreshDrones() {
+            try {
+                console.log("Refreshing drones");
+                droneStore.requestDrones();
+            } catch (error) {
+                console.log("Error while refreshing drones:", error);
+            }
+        },
+    },
+    created() {
+        setInterval(this.refreshDrones, droneReloadTime);
+    },
 });
 </script>
 
@@ -25,7 +40,7 @@ export default defineComponent({
         />
         <h1 class="text-2xl text-slate-700">webtool</h1>
         <nav class="ml-auto mr-2">NAV: TODO k</nav>
-        <ColoredSlotButton btnColorClass="yellowbtn">
+        <ColoredSlotButton btnColorClass="yellowbtn" @click="refreshDrones">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -39,9 +54,10 @@ export default defineComponent({
     </section>
 
     <main class="flex items-center flex-col h-full">
-        <!-- <FilterBar />
-        <DroneGrid /> -->
+        <!-- <FilterBar /> -->
         <Login class="mt-20" />
+        <DroneGrid />
+
         <!-- <TableView /> -->
     </main>
 </template>
