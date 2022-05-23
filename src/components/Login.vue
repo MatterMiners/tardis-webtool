@@ -9,12 +9,17 @@ export default defineComponent({
             authStore,
             password: "",
             username: "",
-            tmp: "",
         };
     },
     methods: {
         onLogin() {
-            authStore.requestToken(this.username, this.password);
+            try {
+                authStore.requestToken(this.username, this.password);
+                this.username = "";
+                this.password = "";
+            } catch (error) {
+                console.log(error);
+            }
         },
     },
     components: {

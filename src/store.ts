@@ -23,6 +23,7 @@ export const authStore = reactive({
             .then((resp) => {
                 this.token = resp.data.access_token
                 this.jwtclaim = parseJwt(this.token)
+                console.log("Login Successful!");
             })
             .catch((err) => {
                 console.error("Error:", err.message);
