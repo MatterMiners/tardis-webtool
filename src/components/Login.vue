@@ -9,12 +9,17 @@ export default defineComponent({
             authStore,
             password: "",
             username: "",
-            tmp: "",
         };
     },
     methods: {
         onLogin() {
-            authStore.getToken(this.username, this.password);
+            try {
+                authStore.requestToken(this.username, this.password);
+                this.username = "";
+                this.password = "";
+            } catch (error) {
+                console.log(error);
+            }
         },
     },
     components: {
@@ -40,7 +45,7 @@ export default defineComponent({
             />
             <input
                 class="myinput"
-                type="text"
+                type="password"
                 placeholder="Password"
                 v-model="password"
             />
@@ -49,12 +54,12 @@ export default defineComponent({
                     @click="onLogin"
                     label="Login"
                     btnColorClass="bluebtn"
-                    class="px-4"
+                    class="px-4 mt-3 mx-2"
                 />
                 <ColoredTextButton
                     label="Register"
                     btnColorClass="bluebtn"
-                    class="px-4"
+                    class="px-4 mt-3 mx-2"
                 />
             </div>
         </form>

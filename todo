@@ -27,3 +27,14 @@
 - [ ] refactor all buttons so color can be passed as attribute
 - [ ] Proper api call error handling
 - [ ] Automatic periodic reload of droneData
+- [ ] Keep DroneWidgets from collapsing at change
+- [ ] Add expand all button
+- [ ] Find solution for storing token
+- [ ] Store token in Cookie with SameSite=strict on. 
+- [ ] Add refresh token to api
+- [ ] Decrease default token lease time
+- [ ] Add type checker for every API json
+- [ ] Inform about unit testing
+- [ ] Move ToDo list into Readme
+- [ ] Write proper Readme
+- [ ] Make urgency categories for todos
