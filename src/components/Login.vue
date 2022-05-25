@@ -1,6 +1,6 @@
 <script lang="ts">
+import { authStore } from "@/store/authStore";
 import { defineComponent } from "vue";
-import { authStore } from "../store";
 import ColoredTextButton from "./util/ColoredTextButton.vue";
 
 export default defineComponent({

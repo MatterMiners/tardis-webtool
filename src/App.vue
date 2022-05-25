@@ -5,8 +5,8 @@ import Login from "./components/Login.vue";
 import FilterBar from "./components/FilterBar.vue";
 import ColoredSlotButton from "./components/util/ColoredSlotButton.vue";
 import TableView from "./components/TableView.vue";
-import { droneStore, authStore } from "./store";
 import { droneReloadTime } from "./util";
+import { droneStore } from "./store/droneStore";
 
 export default defineComponent({
     data() {

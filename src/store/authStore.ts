@@ -1,13 +1,13 @@
 import { reactive } from "vue";
 import axios from "axios";
-import type { DroneData } from "./main"
-import { parseJwt, type AccessTokenClaim, getScope } from "./util"
-
+import { parseJwt } from "../util"
+import { AccessTokenClaim } from "../api/apitypes"
 
 export const authStore = reactive({
     token: "",
     error: "",
-    jwtclaim: {} as AccessTokenClaim,
+    jwtclaim: AccessTokenClaim,
+
     requestToken(user: string, passwd: string) {
         axios
             .post(
@@ -40,24 +40,3 @@ export const authStore = reactive({
     }
 });
 
-export const droneStore = reactive({
-    droneData: [] as DroneData[],
-    requestDrones() {
-        if (authStore.token == "") {
-            throw 'Empty access_token!'
-        }
-        if (authStore.getScopes() == null || !authStore.getScopes()?.includes(getScope)) {
-            throw 'Unauthorized scope!'
-        }
-        axios.get("/api/tardis/resources/", {
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${authStore.token}`, // Better error handling here
-            }
-        })
-            .then(resp => {
-                this.droneData = resp.data;
-            })
-            .catch(err => console.error(err))
-    }
-})

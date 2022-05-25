@@ -2,7 +2,7 @@
 import { defineComponent } from "vue";
 import DroneWidget from "./DroneWidget/DroneWidget.vue";
 import type { DroneData } from "../main";
-import { droneStore } from "@/store";
+import { droneStore } from "@/store/droneStore";
 
 var id = 0;
 
