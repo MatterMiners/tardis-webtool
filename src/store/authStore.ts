@@ -1,6 +1,6 @@
 import { reactive } from "vue";
 import axios from "axios";
-import { parseJwt } from "../util"
+import { getScope, parseJwt, putScope } from "../util"
 import type { AccessTokenClaim } from "../api/apitypes"
 
 export const authStore = reactive({
@@ -37,6 +37,14 @@ export const authStore = reactive({
 
     getScopes(): string[] {
         return this.jwtclaim.scopes
+    },
+
+    canGetResources(): boolean {
+        return this.getScopes().includes(getScope)
+    },
+
+    canPutResources(): boolean {
+        return this.getScopes().includes(putScope)
     }
 });
 
