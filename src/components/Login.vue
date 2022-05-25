@@ -15,7 +15,6 @@ export default defineComponent({
         onLogin() {
             try {
                 authStore.requestToken(this.username, this.password);
-                this.username = "";
                 this.password = "";
             } catch (error) {
                 console.log(error);
