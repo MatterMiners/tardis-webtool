@@ -1,12 +1,12 @@
 import { reactive } from "vue";
 import axios from "axios";
 import { parseJwt } from "../util"
-import { AccessTokenClaim } from "../api/apitypes"
+import type { AccessTokenClaim } from "../api/apitypes"
 
 export const authStore = reactive({
     token: "",
     error: "",
-    jwtclaim: AccessTokenClaim,
+    jwtclaim: {} as AccessTokenClaim,
 
     requestToken(user: string, passwd: string) {
         axios
@@ -22,7 +22,11 @@ export const authStore = reactive({
             )
             .then((resp) => {
                 this.token = resp.data.access_token
-                this.jwtclaim = parseJwt(this.token)
+                const parsingResult = parseJwt(this.token)
+                if (parsingResult instanceof Error) {
+                    throw parsingResult
+                }
+                this.jwtclaim = parsingResult
                 console.log("Login Successful!");
             })
             .catch((err) => {
@@ -30,13 +34,9 @@ export const authStore = reactive({
                 this.error = err.message;
             })
     },
-    getScopes(): string[] | null {
-        try {
-            return this.jwtclaim.scopes
-        } catch (error) {
-            console.log(error);
-            return null
-        }
+
+    getScopes(): string[] {
+        return this.jwtclaim.scopes
     }
 });
 
