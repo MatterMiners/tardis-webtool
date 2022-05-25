@@ -1,7 +1,7 @@
-import { AccessTokenClaim } from "./api/apitypes"
+import { type AccessTokenClaim, isAccessTokenClaim } from "./api/apitypes"
 
 // source: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
-export function parseJwt(token: string): AccessTokenClaim {
+export function parseJwt(token: string): AccessTokenClaim | Error {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
@@ -9,7 +9,11 @@ export function parseJwt(token: string): AccessTokenClaim {
     }).join(''));
 
     const claim = JSON.parse(jsonPayload);
-    return new AccessTokenClaim(claim)
+    if (!isAccessTokenClaim(claim)) {
+        return Error("AccessTokenClaim doesn't have the right shape");
+    }
+
+    return claim
 };
 
 export const getScope = "resources:get"
