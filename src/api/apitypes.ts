@@ -26,7 +26,7 @@ export interface DroneData {
 }
 
 
-function isDroneData(data: any): data is DroneData {
+export function isDroneData(data: any): data is DroneData {
     return (
         'remote_resource_uuid' in data &&
         'state' in data &&
