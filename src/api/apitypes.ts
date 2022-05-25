@@ -1,17 +1,17 @@
 // Unfortunately at this point in time there is no better way to check interfaces at runtime:
 // https://stackoverflow.com/questions/14425568/interface-type-check-with-typescript
 
-export interface AccessTokenClaim {
+export interface UserData {
     exp: string
     scopes: string[]
-    sub: string
+    user: string
 }
 
-export function isAccessTokenClaim(claim: any): claim is AccessTokenClaim {
+export function isUserData(claim: any): claim is UserData {
     return (
         'exp' in claim &&
         'scopes' in claim &&
-        'sub' in claim
+        'user' in claim
     )
 }
 
