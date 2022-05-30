@@ -20,6 +20,9 @@
 - [ ] Expiration only in jwt or also as cookie value
 - [ ] Move expiration date to some global constant
 - [ ] Implement cookie auth in all the other functions
+- [ ] Set the csrf_token_cookie recieved by the API in some local hidden div or something.
+- [ ] Reenable csrf tokens in API
+- [ ] Enable secure cookies in API in production
 
 
 ### Filter System
