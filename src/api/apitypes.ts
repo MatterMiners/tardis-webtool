@@ -2,16 +2,14 @@
 // https://stackoverflow.com/questions/14425568/interface-type-check-with-typescript
 
 export interface UserData {
-    exp: string
     scopes: string[]
-    user: string
+    user_name: string
 }
 
-export function isUserData(claim: any): claim is UserData {
+export function isUserData(data: any): data is UserData {
     return (
-        'exp' in claim &&
-        'scopes' in claim &&
-        'user' in claim
+        'scopes' in data &&
+        'user_name' in data
     )
 }
 
