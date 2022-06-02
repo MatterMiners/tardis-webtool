@@ -29,13 +29,13 @@ export default defineComponent({
 
 <template>
     <div
-        class="flex items-center self-center justify-self-center flex-col bg-white shadow-md p-5 max-w-fit rounded-md"
+        class="flex items-center self-center justify-self-center flex-col bg-white shadow-md p-5 max-w-fit rounded-md m-10"
     >
         <h2 class="font-bold text-3xl text-sky-700 m-1">Login</h2>
         <h3 class="text-xl text-slate-600 m-2">
             Enter your login credentials.
         </h3>
-        <form @submit.prevent class="flex flex-col">
+        <form @submit.prevent class="flex flex-col text-slate-600">
             <input
                 class="myinput"
                 type="text"

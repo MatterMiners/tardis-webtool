@@ -10,7 +10,7 @@
     }
 
     .myinput {
-        @apply bg-slate-50 shadow-sm p-1 m-1 nofocusring placeholder:text-sm focus:border-blue-400 transition duration-150 caret-slate-400 rounded hover:border-slate-300 border-slate-200 border;
+        @apply placeholder:text-slate-400 bg-slate-50 shadow-sm p-1 m-1 nofocusring placeholder:text-sm focus:border-blue-400 transition duration-150 caret-slate-400 rounded hover:border-slate-300 border-slate-200 border;
     }
 
     .nofocusring {
