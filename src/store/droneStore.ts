@@ -6,19 +6,14 @@ import { authStore } from "./authStore"
 export const droneStore = reactive({
     droneData: [] as DroneData[],
     requestDrones() {
-        if (authStore.token == "") {
-            throw 'Empty access_token!'
+        if (!authStore.loggedIn) {
+            throw 'Not logged in!'
         }
         if (!authStore.canGetResources()) {
             throw 'Unauthorized scope!'
         }
 
-        axios.get("/api/tardis/resources/", {
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${authStore.token}`,
-            }
-        })
+        axios.get("/api/tardis/resources/")
             .then(resp => {
                 const isDroneDataArray = (resp.data as Array<any>).every(
                     element => isDroneData(element)

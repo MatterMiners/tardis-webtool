@@ -1,30 +1,30 @@
 import { reactive } from "vue";
 import axios from "axios";
 import { getScope, putScope } from "../util"
-import { isUserData, type UserData } from "../api/apitypes"
-
+import { isUserData, } from "../api/apitypes"
+import type { UserData } from "../api/apitypes"
 export const authStore = reactive({
     error: "",
-    userdata: {} as UserData,
+    userData: {} as UserData,
+    loggedIn: false,
 
-    requestToken(user: string, passwd: string) {
+    login(user: string, passwd: string) {
         axios
             .post(
-                "/api/tardis/login/access-token",
-                `password=${passwd}&username=${user}`,
+                "/api/tardis/user/login",
                 {
-                    headers: {
-                        accept: "application/json",
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                }
+                    password: passwd,
+                    user_name: user
+                },
             )
             .then((resp) => {
-                if (!isUserData(resp.data)) {
-                    throw "Response wasn't UserData"
+                if (!isUserData(resp.data.user)) {
+                    this.error = "No user data returned by api"
+                    throw this.error
                 }
-                this.userdata = resp.data
-                console.log("Login Successful!");
+                this.userData = resp.data.user
+                this.loggedIn = true
+                console.log("Success:", resp.data.msg);
             })
             .catch((err) => {
                 console.error("Error:", err.message);
@@ -33,7 +33,7 @@ export const authStore = reactive({
     },
 
     getScopes(): string[] {
-        return this.userdata.scopes
+        return this.userData.scopes
     },
 
     canGetResources(): boolean {
