@@ -1,14 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
     .btn {
-        @apply relative p-2 mt-3 mx-2 rounded-md transition duration-150 shadow-md hover:shadow-none text-white font-semibold;
+        @apply relative p-2 rounded-md transition duration-150 shadow-md hover:shadow-none text-white font-semibold;
     }
 
     .myinput {
-        @apply bg-slate-50 shadow-sm p-2 m-1 nofocusring placeholder:text-sm focus:border-blue-400 transition duration-150 caret-slate-400 rounded hover:border-slate-300 border-slate-200 border;
+        @apply bg-slate-50 shadow-sm p-1 m-1 nofocusring placeholder:text-sm focus:border-blue-400 transition duration-150 caret-slate-400 rounded hover:border-slate-300 border-slate-200 border;
     }
 
     .nofocusring {
@@ -22,10 +24,35 @@
     .mythbottom {
         @apply border-slate-300 bg-white font-normal p-1 text-slate-500;
     }
+
+    /*  The following classes are added, to enable dynamic button color. */
+    .redbtn {
+        @apply bg-red-500 hover:bg-red-600 shadow-red-500/50;
+    }
+
+    .greenbtn {
+        @apply bg-green-500 hover:bg-green-600 shadow-green-500/50;
+    }
+
+    .bluebtn {
+        @apply bg-blue-500 hover:bg-blue-600 shadow-blue-500/50;
+    }
+
+    .yellowbtn {
+        @apply bg-yellow-500 hover:bg-yellow-600 shadow-yellow-500/50;
+    }
 }
 
 @layer base {
     html {
         font-family: "Fira Sans", sans-serif;
+    }
+
+    body {
+        @apply bg-slate-50;
+    }
+
+    #app {
+        @apply h-screen;
     }
 }

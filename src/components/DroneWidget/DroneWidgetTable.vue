@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { DroneData } from "@/main";
+import type { DroneData } from "@/api/apitypes";
 import { defineComponent } from "vue";
 import type { PropType } from "vue";
 
@@ -12,7 +12,7 @@ export default defineComponent({
 
 <template>
     <div class="border border-slate-300 rounded mt-2">
-        <table class="border-collapse table-auto">
+        <table class="border-collapse table-auto w-full">
             <thead>
                 <tr>
                     <th
@@ -23,7 +23,7 @@ export default defineComponent({
                     <th
                         class="font-bold p-2 rounded-tr bg-slate-50 text-slate-700"
                     >
-                        Property
+                        Value
                     </th>
                 </tr>
             </thead>

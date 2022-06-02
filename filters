@@ -1,0 +1,22 @@
+How to design the filter/function bar?
+
+An expand all button
+A run filter button
+A Kill all button (Applies only to the ones filtered)
+
+It is possible to write an api that provides all available filters and this api is consumed each time the side is reloaded.
+For example
+
+GET /api/tardis/filters/droneStates -> JSON-list with all available drone States
+
+TO decide: Should always all Filters be displayed or only the ones where an items are present
+
+Show dynamically how many items are included with alredy defined filters (see font-awsome filters)
+
+Filter by state: Combo box with all states.
+Filter by Site: Combo Box with dynamically all Sites
+Filter by machineType: Probably static.
+
+
+New Idea: Make always visible top bar under nav bar that has many funtions like how the drones are showed (table, widgets,...)
+Then you can click on a filter icon and another bar pops up under there where you can set filters that are independent of the view. There are also the icons mentioned above (line 20). Some of these can spawn a third taskbar. If some function isn't compatible with the view style it gets greyed out and disabled (cant click on it). Discord style side bar
