@@ -9,6 +9,7 @@ export const droneStore = reactive({
         if (!authStore.loggedIn) {
             throw 'Not logged in!'
         }
+        // TODO: find better solution for this the asking manually in each function
         if (!authStore.canGetResources()) {
             throw 'Unauthorized scope!'
         }
