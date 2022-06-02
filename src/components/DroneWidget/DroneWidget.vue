@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import type { PropType } from "vue";
-import type { DroneData } from "@/main";
 import ColoredTextButton from "../util/ColoredTextButton.vue";
+import type { DroneData } from "@/api/apitypes";
 import DroneWidgetTable from "./DroneWidgetTable.vue";
 import ColoredSlotButton from "../util/ColoredSlotButton.vue";
 

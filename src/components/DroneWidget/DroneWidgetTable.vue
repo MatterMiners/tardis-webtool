@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { DroneData } from "@/main";
+import type { DroneData } from "@/api/apitypes";
 import { defineComponent } from "vue";
 import type { PropType } from "vue";
 
