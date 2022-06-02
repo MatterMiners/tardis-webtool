@@ -14,13 +14,13 @@ export default defineComponent({
 </script>
 
 <template>
-    <section class="flex p-2 bg-white shadow-md items-center">
+    <section class="flex p-4 bg-white shadow-md items-center">
         <img
             src="@/assets/TARDIS_logo.svg"
             alt="Tardis Logo"
             class="h-10 mr-3 relative bottom-0.5"
         />
-        <h1 class="text-2xl text-slate-700 font-bold italic">WebTool</h1>
+        <h1 class="text-3xl text-slate-700 font-bold italic">WebTool</h1>
         <nav class="ml-auto mr-2">NAV: TODO k</nav>
         <ColoredSlotButton
             btnColorClass="yellowbtn"
