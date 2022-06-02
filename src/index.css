@@ -6,7 +6,7 @@
 
 @layer components {
     .btn {
-        @apply relative p-2 rounded-md transition duration-150 shadow-md hover:shadow-none text-white font-semibold;
+        @apply relative p-2 rounded-md transition duration-150 shadow-md hover:shadow-none text-white font-semibold disabled:bg-zinc-300 disabled:shadow-none disabled:cursor-not-allowed disabled:hover:bg-zinc-300;
     }
 
     .myinput {
