@@ -3,8 +3,6 @@ import { defineComponent } from "vue";
 import DroneWidget from "./DroneWidget/DroneWidget.vue";
 import { droneStore } from "@/store/droneStore";
 
-var id = 0;
-
 export default defineComponent({
     data() {
         return {
@@ -12,12 +10,9 @@ export default defineComponent({
         };
     },
     components: { DroneWidget },
-    created() {
-        try {
-            droneStore.requestDrones();
-        } catch (error) {
-            console.error("Error while trying initial drone pull:", error);
-        }
+    mount() {
+        // TODO: Error handling
+        droneStore.requestDrones();
     },
 });
 </script>
@@ -26,7 +21,6 @@ export default defineComponent({
     <div
         class="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1"
     >
-        <!-- Error handling if drone not right shape-->
         <DroneWidget
             v-for="drone in droneStore.droneData"
             :drone-data="drone"

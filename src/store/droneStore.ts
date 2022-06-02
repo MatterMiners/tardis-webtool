@@ -6,6 +6,8 @@ import { authStore } from "./authStore"
 export const droneStore = reactive({
     droneData: [] as DroneData[],
     requestDrones() {
+        console.log("Fetching drones");
+
         if (!authStore.loggedIn) {
             throw 'Not logged in!'
         }
@@ -25,7 +27,8 @@ export const droneStore = reactive({
                 }
 
                 this.droneData = resp.data
+                console.log("Successfully fetched drones")
             })
-            .catch(err => console.error(err))
+            .catch(err => console.error("Error while fetching Drones:", err))
     }
 })
