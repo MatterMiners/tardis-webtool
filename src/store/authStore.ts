@@ -2,10 +2,11 @@ import { reactive } from "vue";
 import axios from "axios";
 import { getScope, putScope } from "../util";
 import { isUserData } from "../api/apitypes";
-import type { UserData } from "../api/apitypes";
+import { sessionStore } from "./sessionStore";
+
+// provides scopes, loggedIn status and manages auth
 export const authStore = reactive({
     error: "",
-    userData: {} as UserData,
     loggedIn: false,
 
     login(user: string, passwd: string) {
@@ -19,7 +20,7 @@ export const authStore = reactive({
                     this.error = "No user data returned by api";
                     throw this.error;
                 }
-                this.userData = resp.data.user;
+                sessionStore.sessionData.userData = resp.data.user;
                 this.loggedIn = true;
                 console.log("Success:", resp.data.msg);
             })
