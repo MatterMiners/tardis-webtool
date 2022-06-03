@@ -31,7 +31,7 @@
     }
 
     .greenbtn {
-        @apply bg-green-500 hover:bg-green-600 shadow-green-500/50;
+        @apply bg-teal-500 hover:bg-teal-600 shadow-teal-500/50;
     }
 
     .bluebtn {
