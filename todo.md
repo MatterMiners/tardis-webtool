@@ -4,6 +4,10 @@
 
 - [ ] Write tests
 - [ ] Move the refreshDrones stuff from NavBar.vue to mounted() on DroneGrid
+- [ ] Security bug: all fetched Data remains in memory when logging out. So the next user can read from other user.
+  - [ ] Solution: make a global Watcher for authStore.loggedIn. Whenever it changes to false delete all Session Data.
+  - [ ] Save all session data in some Object.
+- [ ] refactor al droneFunctions from sessionStore into droneStore
 
 - [x] Update API to use cookie token. (Almost done but usable as is. Only csrf tokens missing)
 - [x] Store token in Cookie with SameSite=strict, secure and http-only on.
@@ -19,7 +23,9 @@
 - [ ] Use beforeResolve hook to fetch droneData before loading components dependent on droneData. Do not fetch directly after login succeeds.
 - [ ] Fetch filter values at the same time as droneData (but cache it somehow)
 - [ ] Use meta fields in routes to define authorization required 
-- [ ] Use per-component hooks to run checks/??? before requesting /{drone_uuid}/xxx routes 
+- [ ] Use per-component hooks to run checks/??? before requesting /{drone_uuid}/xxx routes
+- [ ] redirect to dashboard on successful login (independent of auth checking)
+- [ ] Introduce Filterbar as separate named view in Main.vue
 
 ### Filter System
 
@@ -42,6 +48,12 @@
 - [ ] Make refresh button appear only when logged in
 - [ ] Using reactivity API to track authStore logged in state to enable/disable automatic fetch of droneData
 - [ ] Add user:get scopes as constants
+- [ ] Add Login Button
+- [ ] Add proper landing page
+- [ ] Disable logout button when not logged in
+- [ ] Make protected route and put everything where authentication is needed in there
+- [ ] If I need a link that doesn't precede /protected I can simply use an alias
+- [ ] Add tooltips over button hover
 - [x] Add revoke api for revoking token (Kind of with /user/logout)
 - [x] In rest api eine refresh token methode einbauen (refresh token in jwt-claim) -> lease time reduzieren.
 - [x] Investigate why drone widgets stay expanded when refetching droneData => Because key was intuitively set to drone_uuid which was correct by accident.
