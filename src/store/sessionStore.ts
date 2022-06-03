@@ -1,7 +1,8 @@
-import { isDroneData, type DroneData, type UserData } from "@/api/apitypes";
-import axios from "axios";
+import type { DroneData, UserData } from "@/api/apitypes";
+import { getDroneData } from "@/api/resourcesCalls";
+import { loginUser, logoutUser } from "@/api/userCalls";
+import { expect, getScope, putScope } from "@/util";
 import { reactive } from "vue";
-import { authStore } from "./authStore";
 
 // for storing, fetching, deleting and providing all global session data
 export const sessionStore = reactive({
@@ -9,31 +10,51 @@ export const sessionStore = reactive({
         droneData: [] as DroneData[],
         userData: {} as UserData,
     },
+
+    resetStoreData() {
+        this.sessionData = { droneData: [], userData: {} as UserData };
+    },
+
     requestDrones() {
-        console.log("Fetching drones");
+        let res = getDroneData();
+        let drones = expect(res, "Error while requesting drones:");
+        this.sessionData.droneData = drones;
+        console.log("Successfully fetched drones");
+    },
 
-        if (!authStore.loggedIn) {
-            throw "Not logged in!";
+    login(username: string, password: string) {
+        let res = loginUser(username, password);
+        let user = expect(res, "Error while logging in");
+        // must be sessionStorage to be persistent
+        // consider security
+        sessionStorage.setItem("loggedIn", "true");
+        this.sessionData.userData = user;
+    },
+
+    logout() {
+        if (!this.loggedIn) {
+            throw "Cannot log out if not logged in!";
         }
-        // TODO: find better solution for this the asking manually in each function
-        if (!authStore.canGetResources()) {
-            throw "Unauthorized scope!";
-        }
+        let res = logoutUser();
+        expect(res, "Error while logging out");
+        console.log("User logged out");
+        sessionStorage.clear();
+        this.resetStoreData();
+    },
 
-        axios
-            .get("/api/tardis/resources/")
-            .then((resp) => {
-                const isDroneDataArray = (resp.data as Array<any>).every(
-                    (element) => isDroneData(element)
-                );
+    loggedIn(): boolean {
+        return sessionStorage.getItem("loggedIn") === "true";
+    },
 
-                if (!isDroneDataArray) {
-                    throw "Some DroneData in response don't have the right shape";
-                }
+    getScopes(): string[] {
+        return this.sessionData.userData.scopes;
+    },
 
-                this.sessionData.droneData = resp.data;
-                console.log("Successfully fetched drones");
-            })
-            .catch((err) => console.error("Error while fetching Drones:", err));
+    canGetResources(): boolean {
+        return this.getScopes().includes(getScope);
+    },
+
+    canPutResources(): boolean {
+        return this.getScopes().includes(putScope);
     },
 });
