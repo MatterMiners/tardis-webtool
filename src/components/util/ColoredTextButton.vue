@@ -5,6 +5,7 @@ export default defineComponent({
     props: {
         label: { type: String, required: true },
         btnColorClass: { type: String, required: true },
+        disabled: Boolean,
     },
 });
 </script>
