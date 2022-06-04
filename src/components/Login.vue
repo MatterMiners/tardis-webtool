@@ -1,24 +1,20 @@
 <script lang="ts">
-import { authStore } from "@/store/authStore";
+import { sessionStore } from "@/store/sessionStore";
 import { defineComponent } from "vue";
 import ColoredTextButton from "./util/ColoredTextButton.vue";
 
 export default defineComponent({
     data() {
         return {
-            authStore,
+            sessionStore,
             password: "",
             username: "",
         };
     },
     methods: {
         onLogin() {
-            try {
-                authStore.login(this.username, this.password);
-                this.password = "";
-            } catch (error) {
-                console.log(error);
-            }
+            sessionStore.login(this.username, this.password);
+            this.password = "";
         },
     },
     components: {

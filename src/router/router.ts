@@ -1,8 +1,8 @@
 import Login from "@/components/Login.vue";
 import { createRouter, createWebHashHistory } from "vue-router";
 import NotFound from "@/views/NotFound.vue";
-import { authStore } from "@/store/authStore";
 import DroneGrid from "@/components/DroneGrid.vue";
+import { sessionStore } from "@/store/sessionStore";
 
 const routes = [
     { path: "/:unreachable(.*)*", name: "NotFound", component: NotFound },
@@ -18,7 +18,11 @@ const router = createRouter({
 
 // check authentication
 router.beforeEach((to, from) => {
-    if (!authStore.loggedIn && to.name !== "login" && to.name !== "NotFound") {
+    if (
+        !sessionStore.loggedIn() &&
+        to.name !== "login" &&
+        to.name !== "NotFound"
+    ) {
         return { name: "login" };
     }
 });

@@ -23,7 +23,7 @@ export function unwrap<T>(r: Result<T>): T {
 
 export function expect<T>(r: Result<T>, msg: string): T {
     if (!r.ok) {
-        throw `Error ${r.err} expected: ${msg}`;
+        throw `Error '${r.err}' expected: ${msg}`;
     }
 
     return r.val;

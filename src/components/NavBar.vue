@@ -1,17 +1,20 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import ColoredSlotButton from "@/components/util/ColoredSlotButton.vue";
-import { droneStore } from "@/store/droneStore";
-import { authStore } from "@/store/authStore";
+import { sessionStore } from "@/store/sessionStore";
 
 export default defineComponent({
     data() {
         return {
-            authStore,
-            droneStore,
+            sessionStore,
         };
     },
     components: { ColoredSlotButton },
+    computed: {
+        isLoggedIn() {
+            return sessionStore.loggedIn();
+        },
+    },
 });
 </script>
 
@@ -29,7 +32,7 @@ export default defineComponent({
                 <ColoredSlotButton
                     btnColorClass="greenbtn"
                     class="mr-2"
-                    :disabled="!authStore.loggedIn"
+                    :disabled="!isLoggedIn"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +51,7 @@ export default defineComponent({
                 <ColoredSlotButton
                     btnColorClass="greenbtn"
                     class="mr-6"
-                    :disabled="!authStore.loggedIn"
+                    :disabled="!isLoggedIn"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +70,7 @@ export default defineComponent({
                 <ColoredSlotButton
                     btnColorClass="yellowbtn"
                     class="mr-2"
-                    :disabled="!authStore.loggedIn"
+                    :disabled="!isLoggedIn"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -89,9 +92,9 @@ export default defineComponent({
 
             <ColoredSlotButton
                 btnColorClass="yellowbtn"
-                @click="droneStore.requestDrones()"
+                @click="sessionStore.requestDrones()"
                 class="mr-6"
-                :disabled="!authStore.loggedIn"
+                :disabled="!isLoggedIn"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -122,8 +125,8 @@ export default defineComponent({
             <router-link to="/login">
                 <ColoredSlotButton
                     btnColorClass="redbtn"
-                    @click="authStore.logout()"
-                    :disabled="!authStore.loggedIn"
+                    @click="sessionStore.logout()"
+                    :disabled="!isLoggedIn"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
