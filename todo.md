@@ -58,6 +58,9 @@
 - [ ] Route back to login when receiving 401 or 403 respons
 - [ ] Make login persistent when reloading site and refetch all data on each reload with a hook
 - [ ] Maybe make api data dependent computed properties
+- [ ] Make default Styling for h1 h2 etc.
+- [ ] Disable reload and filter button if not in drone menus 
+- [x] Use commit body to go into more detail according to conventional commits
 - [x] Add revoke api for revoking token (Kind of with /user/logout)
 - [x] In rest api eine refresh token methode einbauen (refresh token in jwt-claim) -> lease time reduzieren.
 - [x] Investigate why drone widgets stay expanded when refetching droneData => Because key was intuitively set to drone_uuid which was correct by accident.
