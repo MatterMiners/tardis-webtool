@@ -33,6 +33,12 @@ npm install
 npm run dev
 ```
 
+### Run ESLint and fix all issues
+
+```sh
+npm run lint:fix
+```
+
 ### Type-Check, Compile and Minify for Production
 
 ```sh

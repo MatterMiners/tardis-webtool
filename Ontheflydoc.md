@@ -55,3 +55,8 @@ The secret jwt app key is currently stored in a config file along with *hashed+s
 There will be a nginx server that will serve as a proxy to enable api access without exposing the api directly. 
 This allows to avoid setting CORS headers and setting the **SameSite Cookie** to *strict* to prevent CSRF attacks.
 In case there will be multiple apis, the apis will be called through `/api/API_NAME/PATH`.
+
+
+## Linting
+
+Slightly modified ESLint google config
