@@ -41,6 +41,10 @@
     .yellowbtn {
         @apply bg-yellow-500 hover:bg-yellow-600 shadow-yellow-500/50;
     }
+
+    .navbarbtn {
+        @apply aspect-square h-7 fill-white;
+    }
 }
 
 @layer base {
