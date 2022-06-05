@@ -1,38 +1,40 @@
 <script lang="ts">
-import { defineComponent } from "vue";
-import ColoredSlotButton from "@/components/util/ColoredSlotButton.vue";
-import { sessionStore } from "@/store/sessionStore";
+import { storeToRefs } from 'pinia';
+import { defineComponent } from 'vue';
+import ColoredSlotButton from '@/components/util/ColoredSlotButton.vue';
+import { useDrones } from '@/store/droneStore';
+import { useUsers } from '@/store/userStore';
 
 export default defineComponent({
-    data() {
-        return {
-            sessionStore,
-        };
+    setup() {
+        const userStore = useUsers();
+        const droneStore = useDrones();
+
+        const { loggedIn } = storeToRefs(userStore);
+        return { loggedIn, userStore, droneStore };
     },
     components: { ColoredSlotButton },
-    computed: {
-        isLoggedIn() {
-            return sessionStore.loggedIn();
-        },
-    },
 });
 </script>
 
 <template>
-    <section class="flex p-4 bg-white shadow-md items-center">
-        <img
-            src="@/assets/TARDIS_logo.svg"
-            alt="Tardis Logo"
-            class="h-10 mr-3 relative bottom-0.5"
-        />
-        <h1 class="text-3xl text-slate-700 font-bold italic">WebTool</h1>
-        <p class="ml-auto text-xl mr-6">Latest Error</p>
+    <section class="flex items-center p-4 bg-white shadow-md">
+        <router-link to="/">
+            <img
+                src="@/assets/TARDIS_logo.svg"
+                alt="Tardis Logo"
+                class="relative bottom-0.5 mr-3 h-10"
+            />
+        </router-link>
+
+        <h1 class="text-3xl italic font-bold text-slate-700">WebTool</h1>
+        <p class="mr-6 ml-auto text-xl">Latest Error</p>
         <nav class="mr-2">
-            <router-link to="/drones-table">
+            <router-link :to="{ name: 'dronetable' }">
                 <ColoredSlotButton
                     btnColorClass="greenbtn"
                     class="mr-2"
-                    :disabled="!isLoggedIn"
+                    :disabled="!loggedIn"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -47,18 +49,19 @@ export default defineComponent({
                 </ColoredSlotButton>
             </router-link>
 
-            <router-link to="/dashboard">
+            <router-link :to="{ name: 'dashboard' }">
                 <ColoredSlotButton
                     btnColorClass="greenbtn"
                     class="mr-6"
-                    :disabled="!isLoggedIn"
+                    :disabled="!loggedIn"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                         class="navbarbtn"
                     >
-                        <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <!-- eslint-disable-next-line max-len -->
+                        <!-- Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
                         <path
                             d="M448 32C483.3 32 512 60.65 512 96V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H448zM152 96H64V160H152V96zM208 160H296V96H208V160zM448 96H360V160H448V96zM64 288H152V224H64V288zM296 224H208V288H296V224zM360 288H448V224H360V288zM152 352H64V416H152V352zM208 416H296V352H208V416zM448 352H360V416H448V352z"
                         />
@@ -70,12 +73,12 @@ export default defineComponent({
                 <ColoredSlotButton
                     btnColorClass="yellowbtn"
                     class="mr-2"
-                    :disabled="!isLoggedIn"
+                    :disabled="!loggedIn"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
-                        class="fill-white h-7 aspect-square"
+                        class="navbarbtn"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -92,14 +95,14 @@ export default defineComponent({
 
             <ColoredSlotButton
                 btnColorClass="yellowbtn"
-                @click="sessionStore.requestDrones()"
+                @click="droneStore.requestDrones()"
                 class="mr-6"
-                :disabled="!isLoggedIn"
+                :disabled="!loggedIn"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
-                    class="fill-white h-7 aspect-square"
+                    class="navbarbtn"
                 >
                     <path
                         d="M464 16c-17.67 0-32 14.31-32 32v74.09C392.1 66.52 327.4 32 256 32C161.5 32 78.59 92.34 49.58 182.2c-5.438 16.81 3.797 34.88 20.61 40.28c16.89 5.5 34.88-3.812 40.3-20.59C130.9 138.5 189.4 96 256 96c50.5 0 96.26 24.55 124.4 64H336c-17.67 0-32 14.31-32 32s14.33 32 32 32h128c17.67 0 32-14.31 32-32V48C496 30.31 481.7 16 464 16zM441.8 289.6c-16.92-5.438-34.88 3.812-40.3 20.59C381.1 373.5 322.6 416 256 416c-50.5 0-96.25-24.55-124.4-64H176c17.67 0 32-14.31 32-32s-14.33-32-32-32h-128c-17.67 0-32 14.31-32 32v144c0 17.69 14.33 32 32 32s32-14.31 32-32v-74.09C119.9 445.5 184.6 480 255.1 480c94.45 0 177.4-60.34 206.4-150.2C467.9 313 458.6 294.1 441.8 289.6z"
@@ -107,7 +110,7 @@ export default defineComponent({
                 </svg>
             </ColoredSlotButton>
 
-            <router-link to="/login">
+            <router-link :to="{ name: 'login' }">
                 <ColoredSlotButton btnColorClass="bluebtn" class="mr-2">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -122,11 +125,11 @@ export default defineComponent({
                 </ColoredSlotButton>
             </router-link>
 
-            <router-link to="/login">
+            <router-link :to="{ name: 'login' }">
                 <ColoredSlotButton
                     btnColorClass="redbtn"
-                    @click="sessionStore.logout()"
-                    :disabled="!isLoggedIn"
+                    @click="userStore.logout()"
+                    :disabled="!loggedIn"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
