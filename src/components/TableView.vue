@@ -1,5 +1,5 @@
 <template>
-    <div
-        class="bg-white shadow-md rounded justify-self-stretch self-stretch m-5 flex-grow"
-    ></div>
+  <div
+    class="grow justify-self-stretch self-stretch m-5 bg-white rounded shadow-md"
+  ></div>
 </template>

@@ -1,30 +1,29 @@
 <script lang="ts">
-import { sessionStore } from "@/store/sessionStore";
-import { defineComponent } from "vue";
-import DroneWidget from "./DroneWidget/DroneWidget.vue";
+import { defineComponent } from 'vue';
+import { useDrones } from '@/store/droneStore';
+import DroneWidget from './DroneWidget/DroneWidget.vue';
 
 export default defineComponent({
-    data() {
-        return {
-            sessionStore,
-        };
+    setup() {
+        const droneStore = useDrones();
+        return { droneStore };
     },
     components: { DroneWidget },
-    mount() {
-        // TODO: Error handling
-        sessionStore.requestDrones();
+    mounted() {
+    // TODO: Error handling
+        this.droneStore.requestDrones();
     },
 });
 </script>
 
 <template>
-    <div
-        class="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1"
-    >
-        <DroneWidget
-            v-for="drone in sessionStore.sessionData.droneData"
-            :drone-data="drone"
-            :key="drone.drone_uuid"
-        />
-    </div>
+  <div
+    class="grid 3xl:grid-cols-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4"
+  >
+    <DroneWidget
+      v-for="drone in droneStore.droneData"
+      :drone-data="drone"
+      :key="drone.drone_uuid"
+    />
+  </div>
 </template>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
     props: {
@@ -10,7 +10,7 @@ export default defineComponent({
 </script>
 
 <template>
-    <button class="btn" :class="btnColorClass" :disabled="disabled">
-        <slot />
-    </button>
+  <button class="btn" :class="btnColorClass" :disabled="disabled">
+    <slot />
+  </button>
 </template>
