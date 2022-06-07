@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { makeStrError, makeOk, type Result } from '@/util';
+import { makeStrError, makeOk, type Result, makeError } from '@/util';
 import { isUserData, type UserData } from './apitypes';
 import { makeFetchError } from './util';
 
 // Api calls to /user
 export async function loginUser(
     username: string,
-    password: string,
+    password: string
 ): Promise<Result<UserData>> {
     try {
         const resp = await axios.post('/api/tardis/user/login', {
@@ -18,7 +18,7 @@ export async function loginUser(
         }
         return makeOk(resp.data.user);
     } catch (error: any) {
-        return makeFetchError(error);
+        return makeError(error);
     }
 }
 
@@ -27,6 +27,6 @@ export async function logoutUser(): Promise<Result<string>> {
         await axios.delete('/api/tardis/user/logout');
         return makeOk('Success at loggin out');
     } catch (error) {
-        return makeFetchError(error);
+        return makeError(error);
     }
 }
