@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia';
 import type { UserData } from '@/api/apitypes';
 import { loginUser, logoutUser } from '@/api/userCalls';
-import { resetAllStores } from '@/pinia';
-import { expect } from '@/util';
+import { unwrap, unwrapLog } from '@/util';
+import { defineStore } from 'pinia';
+import { useDrones } from './droneStore';
 
 // persistent because userData doesn't change much (at all) during a session and doesn't have to be pulled regularily.
 // But the user session has to be persistent across reloads
@@ -18,8 +18,9 @@ export const useUsers = defineStore('usersStore', {
     actions: {
         async login(username: string, password: string) {
             const res = await loginUser(username, password);
-            const user = expect(res, 'Error while logging in');
-            this.$state.userData = user;
+            // gets handled in Login Widget
+            const user = unwrap(res);
+            this.userData = user;
             this.loggedIn = true;
             console.log('Logged in!');
         },
@@ -39,8 +40,15 @@ export const useUsers = defineStore('usersStore', {
             this.loggedIn = false;
             console.log('User logged out');
         },
-        hasScope(scope: string): boolean {
-            return this.scopes.includes(scope);
+        hasScopes(scopes: string[]): boolean {
+            let out = true;
+            scopes.forEach((scope) => {
+                if (!this.scopes.includes(scope)) {
+                    out = false;
+                    return;
+                }
+            });
+            return out;
         },
     },
     persist: true,
