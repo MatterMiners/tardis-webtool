@@ -11,7 +11,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <button class="btn" :class="btnColorClass">
-    {{ label }}
-  </button>
+    <button class="btn" :class="btnColorClass" :disabled="disabled">
+        {{ label }}
+    </button>
 </template>
