@@ -10,6 +10,8 @@ import DroneGrid from '@/components/DroneGrid.vue';
 import { useUsers } from '@/store/userStore';
 import LandingPage from '@/views/LandingPage.vue';
 import TableView from '@/components/TableView.vue';
+import { getScope } from '@/constants';
+import Forbidden from '@/views/ForbiddenView.vue';
 
 const protectedPrefix = '/protected';
 
@@ -20,7 +22,7 @@ function isProtectedResource(to: RouteLocationNormalized): boolean {
 
 function prefixRoutes(
     prefix: string,
-    routes: RouteRecordRaw[],
+    routes: RouteRecordRaw[]
 ): RouteRecordRaw[] {
     return routes.map((route) => {
         route.path = `${prefix}/${route.path}`;
@@ -38,10 +40,9 @@ function protectedRoutes(routes: RouteRecordRaw[]): RouteRecordRaw[] {
     return prefixRoutes(protectedPrefix, routes);
 }
 
-// TODO: Add function that sets scopes in meta
-
 const routes = [
     { path: '/:unreachable(.*)*', name: 'NotFound', component: NotFound },
+    { path: '/forbidden', name: 'forbidden', component: Forbidden },
     { path: '/login', name: 'login', component: Login },
     { path: '/', name: 'landingpage', component: LandingPage },
     ...protectedRoutes([
@@ -49,11 +50,13 @@ const routes = [
             path: 'dashboard',
             name: 'dashboard',
             component: DroneGrid,
+            meta: { scopes: [getScope] },
         },
         {
             path: 'dronetable',
             name: 'dronetable',
             component: TableView,
+            meta: { scopes: [getScope] },
         },
     ]),
 ];
@@ -69,10 +72,29 @@ router.beforeEach((to, from) => {
 
     const destIsntLogin = to.name !== 'login';
     const destIsnt404 = to.name !== 'NotFound';
-    const isntLoggedIn = !userStore.loggedIn;
+    const isLoggedIn = userStore.loggedIn;
 
-    if (isntLoggedIn && destIsntLogin && destIsnt404 && isProtectedResource(to)) {
+    // if unathenticated user want's to access an existing resource that isn't the login screen
+    if (
+        !isLoggedIn &&
+        destIsntLogin &&
+        destIsnt404 &&
+        isProtectedResource(to)
+    ) {
         return { name: 'login' };
+    }
+
+    const destIsntForbidden = to.name !== 'forbidden';
+    const scopesExistOnRoute = to.meta.scopes;
+    const userIsntAuthorized = !userStore.hasScopes(to.meta.scopes as string[]);
+    if (destIsntForbidden && scopesExistOnRoute && userIsntAuthorized) {
+        return { name: 'forbidden' };
+    }
+
+    const isntRedirected = !to.redirectedFrom;
+    // if not redirected to forbidden make inaccessible
+    if (!destIsntForbidden && isntRedirected) {
+        return { name: 'NotFound' };
     }
 });
 
