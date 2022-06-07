@@ -20,6 +20,13 @@ export function unwrap<T>(r: Result<T>): T {
     return r.val;
 }
 
+// Do not use in production. Works only for val of type null
+export function unwrapLog<T>(r: Result<T>) {
+    if (!r.ok) {
+        console.log(r.err);
+    }
+}
+
 export function expect<T>(r: Result<T>, msg: string): T {
     if (!r.ok) {
         throw new Error(`Error '${r.err}' expected: ${msg}`);
@@ -31,7 +38,7 @@ export function expect<T>(r: Result<T>, msg: string): T {
 export function handle<T>(
     r: Result<T>,
     success: (val: T) => void,
-    handle: (err: Error) => void,
+    handle: (err: Error) => void
 ): void {
     if (!r.ok) {
         return handle(r.err);
