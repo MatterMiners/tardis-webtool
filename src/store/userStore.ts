@@ -24,13 +24,18 @@ export const useUsers = defineStore('usersStore', {
             console.log('Logged in!');
         },
         async logout() {
-            if (!this.loggedIn) {
-                throw new Error('Cannot log out if not logged in!');
-            }
             const res = await logoutUser();
-            expect(res, 'Error while logging out');
-            sessionStorage.clear();
-            resetAllStores();
+            // TODO: replace with proper handling
+            // Using this here because even if the api call doesn't work, the state should be set to logged out
+            // If a fetch error occurs while logging out it's not that critical because all the session data gets deleted anyway
+            unwrapLog(res);
+
+            // Very unfortunate that all stores have to be called manually.
+            // I tried using the resetAllStores() function in pina.ts but somehow it doesn't work properly
+            // TODO: Find a way to reset all stores at once
+            this.$reset();
+            useDrones().$reset();
+
             this.loggedIn = false;
             console.log('User logged out');
         },
