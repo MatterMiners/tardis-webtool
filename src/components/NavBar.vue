@@ -18,7 +18,7 @@ export default defineComponent({
 </script>
 
 <template>
-    <section class="flex items-center p-4 bg-white shadow-md">
+    <section class="flex items-center p-4 bg-white shadow-md sticky top-0 z-10">
         <router-link to="/">
             <img
                 src="@/assets/TARDIS_logo.svg"
@@ -41,7 +41,6 @@ export default defineComponent({
                         viewBox="0 0 512 512"
                         class="navbarbtn"
                     >
-                        <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
                         <path
                             d="M0 96C0 60.65 28.65 32 64 32H448C483.3 32 512 60.65 512 96V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V96zM64 160H128V96H64V160zM448 96H192V160H448V96zM64 288H128V224H64V288zM448 224H192V288H448V224zM64 416H128V352H64V416zM448 352H192V416H448V352z"
                         />
@@ -84,7 +83,6 @@ export default defineComponent({
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512"
                         >
-                            <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
                             <path
                                 d="M3.853 54.87C10.47 40.9 24.54 32 40 32H472C487.5 32 501.5 40.9 508.1 54.87C514.8 68.84 512.7 85.37 502.1 97.33L320 320.9V448C320 460.1 313.2 471.2 302.3 476.6C291.5 482 278.5 480.9 268.8 473.6L204.8 425.6C196.7 419.6 192 410.1 192 400V320.9L9.042 97.33C-.745 85.37-2.765 68.84 3.854 54.87L3.853 54.87z"
                             />
