@@ -85,9 +85,9 @@ router.beforeEach((to, from) => {
     }
 
     const destIsntForbidden = to.name !== 'forbidden';
-    const scopesExistOnRoute = to.meta.scopes;
-    const userIsntAuthorized = !userStore.hasScopes(to.meta.scopes as string[]);
-    if (destIsntForbidden && scopesExistOnRoute && userIsntAuthorized) {
+    const userIsntAuthorized =
+        to.meta.scopes && !userStore.hasScopes(to.meta.scopes as string[]);
+    if (destIsntForbidden && userIsntAuthorized) {
         return { name: 'forbidden' };
     }
 
