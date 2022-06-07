@@ -8,10 +8,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <NavBar />
-    <main class="flex flex-col items-center h-full">
-      <router-view></router-view>
-    </main>
-  </div>
+    <div>
+        <NavBar />
+        <main class="flex flex-col items-center h-full">
+            <router-view></router-view>
+        </main>
+    </div>
 </template>

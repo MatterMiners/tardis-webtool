@@ -23,12 +23,12 @@ export interface DroneData {
 
 export function isDroneData(data: any): data is DroneData {
     return (
-        'remote_resource_uuid' in data &&
-    'state' in data &&
-    'drone_uuid' in data &&
-    'site_name' in data &&
-    'machine_type' in data &&
-    'created' in data &&
-    'updated' in data
+        'remote_resource_uuid' in data
+    && 'state' in data
+    && 'drone_uuid' in data
+    && 'site_name' in data
+    && 'machine_type' in data
+    && 'created' in data
+    && 'updated' in data
     );
 }
