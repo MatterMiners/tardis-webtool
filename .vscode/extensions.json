@@ -1,3 +1,10 @@
 {
-  "recommendations": ["johnsoncodehk.volar", "johnsoncodehk.vscode-typescript-vue-plugin"]
+    "recommendations": [
+        "vivaxy.vscode-conventional-commits",
+        "ms-vscode.vscode-typescript-next",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "vue.volar",
+        "csstools.postcss"
+    ]
 }
