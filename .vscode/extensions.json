@@ -5,6 +5,8 @@
         "esbenp.prettier-vscode",
         "bradlc.vscode-tailwindcss",
         "vue.volar",
-        "csstools.postcss"
+        "csstools.postcss",
+        "visualstudioexptteam.vscodeintellicode",
+        "christian-kohler.path-intellisense"
     ]
 }
