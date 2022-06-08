@@ -62,7 +62,9 @@
 - [ ] Disable reload and filter button if not in drone menus 
 - [ ] Currently scopes are pulled as user scopes (Maybe consider changin it to token scopes )
 - [ ] Make a logged in as ... widget
-- [ ] Error Handling for the drone widget screens
+- [ ] Error Handling for the drone widget screen
+- [ ] Automatic logout when auth missing on 403 or 404 request maybe
+- [ ] Handling for 403 responses...
 - [x] Use commit body to go into more detail according to conventional commits
 - [x] Add revoke api for revoking token (Kind of with /user/logout)
 - [x] In rest api eine refresh token methode einbauen (refresh token in jwt-claim) -> lease time reduzieren.
