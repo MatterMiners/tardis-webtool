@@ -4,6 +4,7 @@ import { defineComponent } from 'vue';
 import ColoredSlotButton from '@/components/util/ColoredSlotButton.vue';
 import { useDrones } from '@/store/droneStore';
 import { useUsers } from '@/store/userStore';
+import FilterBar from '@/components/FilterBar.vue';
 
 export default defineComponent({
     setup() {
@@ -13,12 +14,23 @@ export default defineComponent({
         const { loggedIn } = storeToRefs(userStore);
         return { loggedIn, userStore, droneStore };
     },
-    components: { ColoredSlotButton },
+    data() {
+        return {
+            filterOn: false,
+        };
+    },
+    components: { ColoredSlotButton, FilterBar },
 });
 </script>
 
 <template>
-    <section class="flex items-center p-4 bg-white shadow-md sticky top-0 z-10">
+    <section
+        class="flex items-center p-4 bg-white sticky h-20 top-0 z-10 w-full"
+        :class="{
+            'shadow-md': !filterOn,
+            'border-b border-slate-200': filterOn,
+        }"
+    >
         <router-link to="/">
             <img
                 src="@/assets/TARDIS_logo.svg"
@@ -68,28 +80,27 @@ export default defineComponent({
                 </ColoredSlotButton>
             </router-link>
 
-            <router-link to="/filter">
-                <ColoredSlotButton
-                    btnColorClass="yellowbtn"
-                    class="mr-2"
-                    :disabled="!loggedIn"
+            <ColoredSlotButton
+                btnColorClass="yellowbtn"
+                class="mr-2"
+                :disabled="!loggedIn"
+                @click="filterOn = !filterOn"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    class="navbarbtn"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
-                        class="navbarbtn"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512"
-                        >
-                            <path
-                                d="M3.853 54.87C10.47 40.9 24.54 32 40 32H472C487.5 32 501.5 40.9 508.1 54.87C514.8 68.84 512.7 85.37 502.1 97.33L320 320.9V448C320 460.1 313.2 471.2 302.3 476.6C291.5 482 278.5 480.9 268.8 473.6L204.8 425.6C196.7 419.6 192 410.1 192 400V320.9L9.042 97.33C-.745 85.37-2.765 68.84 3.854 54.87L3.853 54.87z"
-                            />
-                        </svg>
+                        <path
+                            d="M3.853 54.87C10.47 40.9 24.54 32 40 32H472C487.5 32 501.5 40.9 508.1 54.87C514.8 68.84 512.7 85.37 502.1 97.33L320 320.9V448C320 460.1 313.2 471.2 302.3 476.6C291.5 482 278.5 480.9 268.8 473.6L204.8 425.6C196.7 419.6 192 410.1 192 400V320.9L9.042 97.33C-.745 85.37-2.765 68.84 3.854 54.87L3.853 54.87z"
+                        />
                     </svg>
-                </ColoredSlotButton>
-            </router-link>
+                </svg>
+            </ColoredSlotButton>
 
             <ColoredSlotButton
                 btnColorClass="yellowbtn"
@@ -143,4 +154,5 @@ export default defineComponent({
             </router-link>
         </nav>
     </section>
+    <FilterBar v-if="filterOn" />
 </template>
