@@ -1,5 +1,10 @@
 import axios, { AxiosError } from 'axios';
 import { makeStrError, type Result, makeError } from '@/util';
+import { useUsers } from '@/store/userStore';
+import {
+    throttleAdapterEnhancer,
+    cacheAdapterEnhancer,
+} from 'axios-extensions';
 
 // set timeout to 2 seconds in case api is not reachable
 axios.defaults.timeout = 2000;
@@ -30,3 +35,14 @@ export function parseAxiosError(error: AxiosError): string {
         return 'Unknown Fetch Error';
     }
 }
+
+// only used for caching. Maybe implement also for all other stores
+export const tardisHttp = axios.create({
+    baseURL: '/api/tardis',
+    headers: { 'Cache-Control': 'no-cache' },
+    adapter: throttleAdapterEnhancer(
+        cacheAdapterEnhancer(axios.defaults.adapter!, {
+            enabledByDefault: false,
+        })
+    ),
+});
