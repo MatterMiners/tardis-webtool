@@ -32,3 +32,11 @@ export function isDroneData(data: any): data is DroneData {
     && 'updated' in data
     );
 }
+
+export function isStringArray(data: any): data is string[] {
+    if (Array.isArray(data) && data.length > 0) {
+        return data.filter((x) => typeof x !== 'string').length == 0;
+    } else {
+        return false;
+    }
+}
