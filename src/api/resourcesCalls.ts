@@ -1,9 +1,7 @@
 import axios from 'axios';
-import { getScope } from '@/constants';
 import { useUsers } from '@/store/userStore';
 import { makeStrError, makeOk, type Result, makeError } from '@/util';
 import { isDroneData, type DroneData } from './apitypes';
-import { makeFetchError } from './util';
 
 // Api calls to /resources
 export async function getDroneData(): Promise<Result<DroneData[]>> {

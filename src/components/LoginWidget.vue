@@ -1,10 +1,10 @@
 <script lang="ts">
+import axios from 'axios';
 import { storeToRefs } from 'pinia';
 import { defineComponent } from 'vue';
 import { useUsers } from '@/store/userStore';
-import ColoredTextButton from './util/ColoredTextButton.vue';
-import axios from 'axios';
 import { parseAxiosError } from '@/api/util';
+import ColoredTextButton from './util/ColoredTextButton.vue';
 
 export default defineComponent({
     setup() {
@@ -55,7 +55,7 @@ export default defineComponent({
         <h3 class="m-2 text-xl text-slate-600">
             Enter your login credentials.
         </h3>
-        <h3 class="text-md mb-1 text-error">
+        <h3 class="mb-1 text-error text-md">
             {{ loginError }}
         </h3>
         <form @submit.prevent class="flex flex-col text-slate-600">
