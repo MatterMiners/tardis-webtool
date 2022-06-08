@@ -8,9 +8,9 @@ export default defineComponent({
 </script>
 
 <template>
-    <div class="h-full">
+    <div class="min-h-screen flex flex-col">
         <NavBar />
-        <main class="flex flex-col items-center h-full">
+        <main class="flex flex-col items-center h-full self-stretch grow">
             <router-view></router-view>
         </main>
     </div>
