@@ -65,6 +65,8 @@
 - [ ] Error Handling for the drone widget screen
 - [ ] Automatic logout when auth missing on 403 or 404 request maybe
 - [ ] Handling for 403 responses...
+- [ ] Split index.css into multiple files
+- [ ] Make filter bar persistent (dont delete filters on closing) 
 - [x] Use commit body to go into more detail according to conventional commits
 - [x] Add revoke api for revoking token (Kind of with /user/logout)
 - [x] In rest api eine refresh token methode einbauen (refresh token in jwt-claim) -> lease time reduzieren.
