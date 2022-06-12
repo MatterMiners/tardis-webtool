@@ -19,6 +19,13 @@ export default defineComponent({
       filterOn: false,
     };
   },
+  watch: {
+    loggedIn(newValue: boolean) {
+      if (!newValue) {
+        this.filterOn = false;
+      }
+    },
+  },
   components: { ColoredSlotButton, FilterBar },
 });
 </script>
