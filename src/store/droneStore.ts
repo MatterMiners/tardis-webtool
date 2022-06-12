@@ -9,6 +9,7 @@ export const loggedInTrue = 'true';
 export const useDrones = defineStore('droneStore', {
     state: () => ({
         droneData: [] as DroneData[],
+    filteredDrones: [] as DroneData[],
     }),
     actions: {
         async requestDrones() {
