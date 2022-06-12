@@ -1,31 +1,26 @@
-import { isDroneData, type DroneData } from "@/api/apitypes"
-import axios from "axios"
-import { reactive } from "vue"
-import { authStore } from "./authStore"
+import { defineStore } from 'pinia';
+import type { DroneData } from '@/api/apitypes';
+import { getDroneData } from '@/api/resourcesCalls';
+import { expect } from '@/util';
+import FilterBarVue from '@/components/FilterBar.vue';
 
-export const droneStore = reactive({
+export const loggedInStorageKey = 'loggedIn';
+export const loggedInTrue = 'true';
+
+export const useDrones = defineStore('droneStore', {
+  state: () => ({
     droneData: [] as DroneData[],
-    requestDrones() {
-        if (!authStore.loggedIn) {
-            throw 'Not logged in!'
-        }
-        // TODO: find better solution for this the asking manually in each function
-        if (!authStore.canGetResources()) {
-            throw 'Unauthorized scope!'
-        }
-
-        axios.get("/api/tardis/resources/")
-            .then(resp => {
-                const isDroneDataArray = (resp.data as Array<any>).every(
-                    element => isDroneData(element)
-                )
-
-                if (!isDroneDataArray) {
-                    throw "Some DroneData in response don't have the right shape";
-                }
-
-                this.droneData = resp.data
-            })
-            .catch(err => console.error(err))
-    }
-})
+    filteredDrones: [] as DroneData[],
+  }),
+  actions: {
+    /**
+     * Fetches drone data from the API
+     */
+    async requestDrones() {
+      const res = await getDroneData();
+      const drones = expect(res, 'Error while requesting drones:');
+      this.droneData = drones;
+      console.log('Successfully fetched drones');
+    },
+  },
+});

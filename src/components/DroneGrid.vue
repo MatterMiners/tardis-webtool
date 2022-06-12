@@ -1,36 +1,29 @@
 <script lang="ts">
-import { defineComponent } from "vue";
-import DroneWidget from "./DroneWidget/DroneWidget.vue";
-import { droneStore } from "@/store/droneStore";
-
-var id = 0;
+import { defineComponent } from 'vue';
+import { useDrones } from '@/store/droneStore';
+import DroneWidget from './DroneWidget/DroneWidget.vue';
 
 export default defineComponent({
-    data() {
-        return {
-            droneStore,
-        };
-    },
-    components: { DroneWidget },
-    created() {
-        try {
-            droneStore.requestDrones();
-        } catch (error) {
-            console.error("Error while trying initial drone pull:", error);
-        }
-    },
+  setup() {
+    const droneStore = useDrones();
+    return { droneStore };
+  },
+  components: { DroneWidget },
+  mounted() {
+    // TODO: Error handling
+    this.droneStore.requestDrones();
+  },
 });
 </script>
 
 <template>
-    <div
-        class="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1"
-    >
-        <!-- Error handling if drone not right shape-->
-        <DroneWidget
-            v-for="drone in droneStore.droneData"
-            :drone-data="drone"
-            :key="drone.drone_uuid"
-        />
-    </div>
+  <div
+    class="grid 3xl:grid-cols-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mt-2"
+  >
+    <DroneWidget
+      v-for="drone in droneStore.filteredDrones"
+      :drone-data="drone"
+      :key="drone.drone_uuid"
+    />
+  </div>
 </template>

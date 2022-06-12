@@ -1,0 +1,32 @@
+Filter:
+  type: x | y | z
+  value
+
+Item:
+  type: x | y | z
+  value
+
+fn passesFilter(i Item, f Filter) bool:
+  if i.type == f.type:
+    return i.value == f.value:
+
+WRONG because filters of same type are "and"-ed but have to be "or"-ed:
+
+fn passesAllFilters(i Item, filters Filter[]) bool:
+  for f in filters:
+    if !passesFilter(i, f):
+      return false
+  return true
+
+RIGHT:
+
+fn passesAllFilters(item Item, filters Filter[]) bool:
+  passedFilters {filterType: bool | undefined} = {All filterTypes are undefined}
+
+  for filter in filters:
+    if !passesFilter(item, filter):
+      passedFilters[filter.type] = passedFilters[filter.type] == undefined ? false : passedFilters[filter.type] || false
+    else:
+      passedFilters[filter.type] = true
+
+  return convertUndefinedIntoTrue(passedFilters).itemwiseAnd()

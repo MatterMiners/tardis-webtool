@@ -1,12 +1,25 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
+import { useDrones } from '@/store/droneStore';
+import DroneWidget from './DroneWidget/DroneWidget.vue';
+
 export default defineComponent({
-    props: {},
+  setup() {
+    const droneStore = useDrones();
+    return { droneStore };
+  },
+  components: { DroneWidget },
+  mounted() {
+    // TODO: Error handling
+    this.droneStore.requestDrones();
+  },
 });
 </script>
 
 <template>
-    <div
-        class="bg-white shadow-md rounded justify-self-stretch self-stretch m-5 flex-grow"
-    ></div>
+  <div
+    class="grow justify-self-stretch self-stretch m-5 bg-white rounded shadow-md flex justify-center items-center"
+  >
+    <table></table>
+  </div>
 </template>
