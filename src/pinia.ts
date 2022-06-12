@@ -9,7 +9,7 @@ pinia.use(piniaPluginPersistedstate);
 var stores: Store[] = [];
 
 pinia.use(({ store }) => {
-    stores.push(store);
+  stores.push(store);
 });
 
 /**
@@ -19,8 +19,8 @@ pinia.use(({ store }) => {
  * TODO: Make work
  */
 export function resetAllStores(): void {
-    stores.forEach((store) => {
-        store.$reset();
-    });
-    stores = [];
+  stores.forEach((store) => {
+    store.$reset();
+  });
+  stores = [];
 }

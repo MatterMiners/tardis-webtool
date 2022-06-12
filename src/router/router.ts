@@ -1,8 +1,8 @@
 import {
-    createRouter,
-    createWebHashHistory,
-    type RouteLocationNormalized,
-    type RouteRecordRaw,
+  createRouter,
+  createWebHashHistory,
+  type RouteLocationNormalized,
+  type RouteRecordRaw,
 } from 'vue-router';
 import Login from '@/components/LoginWidget.vue';
 import NotFound from '@/views/NotFound.vue';
@@ -15,87 +15,99 @@ import Forbidden from '@/views/ForbiddenView.vue';
 
 const protectedPrefix = '/protected';
 
+/**
+ * Checks if the current route is protected
+ * @param to the route to check
+ * @returns true if the route is protected, false otherwise
+ */
 function isProtectedResource(to: RouteLocationNormalized): boolean {
-    const metaProtectedIsTrue = to.meta.protected == true;
-    return metaProtectedIsTrue;
+  const metaProtectedIsTrue = to.meta.protected == true;
+  return metaProtectedIsTrue;
 }
 
+/**
+ * prefixes all routes with the given prefix
+ * @param prefix the prefix to add to the routes
+ * @param routes routes to prefix
+ * @returns prefixed routes
+ */
 function prefixRoutes(
-    prefix: string,
-    routes: RouteRecordRaw[]
+  prefix: string,
+  routes: RouteRecordRaw[]
 ): RouteRecordRaw[] {
-    return routes.map((route) => {
-        route.path = `${prefix}/${route.path}`;
-        return route;
-    });
+  return routes.map((route) => {
+    route.path = `${prefix}/${route.path}`;
+    return route;
+  });
 }
 
 // all routes that need authentication should be in under the prefix /protected.
 // If another alias is needed, please specify an ADDITIONAL alias
+/**
+ * Adds the protected prefix to all routes that need authentication
+ * @param routes to add the protected prefix to
+ * @returns prefixed routes
+ */
 function protectedRoutes(routes: RouteRecordRaw[]): RouteRecordRaw[] {
-    routes = routes.map((route) => {
-        route.meta = { ...route.meta, protected: true };
-        return route;
-    });
-    return prefixRoutes(protectedPrefix, routes);
+  routes = routes.map((route) => {
+    route.meta = { ...route.meta, protected: true };
+    return route;
+  });
+  return prefixRoutes(protectedPrefix, routes);
 }
 
 const routes = [
-    { path: '/:unreachable(.*)*', name: 'NotFound', component: NotFound },
-    { path: '/forbidden', name: 'forbidden', component: Forbidden },
-    { path: '/login', name: 'login', component: Login },
-    { path: '/', name: 'landingpage', component: LandingPage },
-    ...protectedRoutes([
-        {
-            path: 'dashboard',
-            name: 'dashboard',
-            component: DroneGrid,
-            meta: { scopes: [getScope] },
-        },
-        {
-            path: 'dronetable',
-            name: 'dronetable',
-            component: TableView,
-            meta: { scopes: [getScope] },
-        },
-    ]),
+  { path: '/:unreachable(.*)*', name: 'NotFound', component: NotFound },
+  { path: '/forbidden', name: 'forbidden', component: Forbidden },
+  { path: '/login', name: 'login', component: Login },
+  { path: '/', name: 'landingpage', component: LandingPage },
+  ...protectedRoutes([
+    {
+      path: 'dashboard',
+      name: 'dashboard',
+      component: DroneGrid,
+      meta: { scopes: [getScope] },
+    },
+    {
+      path: 'dronetable',
+      name: 'dronetable',
+      component: TableView,
+      meta: { scopes: [getScope] },
+    },
+  ]),
 ];
 
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes,
+  history: createWebHashHistory(),
+  routes,
 });
 
 // check authentication
 router.beforeEach((to, from) => {
-    const userStore = useUsers();
+  const userStore = useUsers();
 
-    const destIsntLogin = to.name !== 'login';
-    const destIsnt404 = to.name !== 'NotFound';
-    const isLoggedIn = userStore.loggedIn;
+  const destIsntLogin = to.name !== 'login';
+  const destIsnt404 = to.name !== 'NotFound';
+  const isLoggedIn = userStore.loggedIn;
 
-    // if unathenticated user want's to access an existing resource that isn't the login screen
-    if (
-        !isLoggedIn &&
-        destIsntLogin &&
-        destIsnt404 &&
-        isProtectedResource(to)
-    ) {
-        return { name: 'login' };
-    }
+  // if unathenticated user want's to access an existing resource that isn't the login screen
+  if (!isLoggedIn && destIsntLogin && destIsnt404 && isProtectedResource(to)) {
+    return { name: 'login' };
+  }
 
-    const destIsntForbidden = to.name !== 'forbidden';
-    const userIsntAuthorized =
-        to.meta.scopes && !userStore.hasScopes(to.meta.scopes as string[]);
-    if (destIsntForbidden && userIsntAuthorized) {
-        return { name: 'forbidden' };
-    }
+  // if authenticated user wants to access forbidden resource
+  const destIsntForbidden = to.name !== 'forbidden';
+  const userIsntAuthorized =
+    to.meta.scopes && !userStore.hasScopes(to.meta.scopes as string[]);
+  if (destIsntForbidden && userIsntAuthorized) {
+    return { name: 'forbidden' };
+  }
 
-    const isntRedirected = !to.redirectedFrom;
-    // if not redirected to forbidden make inaccessible
-    if (!destIsntForbidden && isntRedirected) {
-        return { name: 'NotFound' };
-    }
+  const isntRedirected = !to.redirectedFrom;
+  // if not redirected to forbidden make inaccessible
+  if (!destIsntForbidden && isntRedirected) {
+    return { name: 'NotFound' };
+  }
 });
 
 export default router;

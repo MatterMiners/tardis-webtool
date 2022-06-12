@@ -3,12 +3,12 @@ import { defineComponent } from 'vue';
 import MainView from '@/views/MainView.vue';
 
 export default defineComponent({
-    components: {
-        MainView,
-    },
+  components: {
+    MainView,
+  },
 });
 </script>
 
 <template>
-    <MainView></MainView>
+  <MainView></MainView>
 </template>

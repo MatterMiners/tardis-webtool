@@ -4,9 +4,9 @@ import type { PropType } from 'vue';
 import type { DroneData } from '@/api/apitypes';
 
 export default defineComponent({
-    props: {
-        droneData: { type: Object as PropType<DroneData>, required: true },
-    },
+  props: {
+    droneData: { type: Object as PropType<DroneData>, required: true },
+  },
 });
 </script>
 

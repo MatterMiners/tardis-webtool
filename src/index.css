@@ -5,11 +5,14 @@
 @tailwind utilities;
 
 @layer components {
-    .btn {
-        @apply relative p-2 rounded-md transition duration-150 shadow-md hover:shadow-none text-white font-semibold disabled:bg-zinc-300 disabled:shadow-none disabled:cursor-not-allowed disabled:hover:bg-zinc-300;
-    }
+  .btn {
+    @apply relative p-2 rounded-md transition duration-150 shadow-md hover:shadow-none text-white font-semibold disabled:bg-zinc-300 disabled:shadow-none disabled:cursor-not-allowed disabled:hover:bg-zinc-300;
+  }
 
-    .myinput {
+  .myinput {
+    @apply placeholder:text-slate-400 bg-slate-50 shadow-sm p-1 pl-3 nofocusring  focus:border-blue-400 transition duration-150 caret-slate-400 rounded hover:border-slate-300 border-slate-200 border;
+  }
+
   .myselectbtn {
     @apply flex flex-row justify-between items-center border border-slate-200 hover:border-slate-300 transition duration-150 text-left p-1 px-3  rounded bg-white shadow-sm;
   }
@@ -26,38 +29,38 @@
     @apply py-1 px-3 hover:bg-slate-100 disabled:hover:bg-white disabled:cursor-not-allowed;
   }
 
-    .nofocusring {
-        @apply focus:ring-0 focus:ring-offset-0;
-    }
+  .nofocusring {
+    @apply focus:ring-0 focus:ring-offset-0;
+  }
 
-    .myth {
-        @apply border-b border-slate-300 bg-white font-normal p-1 text-slate-500;
-    }
+  .myth {
+    @apply border-b border-slate-300 bg-white font-normal p-1 text-slate-500;
+  }
 
-    .mythbottom {
-        @apply border-slate-300 bg-white font-normal p-1 text-slate-500;
-    }
+  .mythbottom {
+    @apply border-slate-300 bg-white font-normal p-1 text-slate-500;
+  }
 
-    /*  The following classes are added, to enable dynamic button color. */
-    .redbtn {
-        @apply bg-red-500 hover:bg-red-600 shadow-red-500/50;
-    }
+  /*  The following classes are added, to enable dynamic button color. */
+  .redbtn {
+    @apply bg-red-500 hover:bg-red-600 shadow-red-500/50;
+  }
 
-    .greenbtn {
-        @apply bg-teal-500 hover:bg-teal-600 shadow-teal-500/50;
-    }
+  .greenbtn {
+    @apply bg-teal-500 hover:bg-teal-600 shadow-teal-500/50;
+  }
 
-    .bluebtn {
-        @apply bg-blue-500 hover:bg-blue-600 shadow-blue-500/50;
-    }
+  .bluebtn {
+    @apply bg-blue-500 hover:bg-blue-600 shadow-blue-500/50;
+  }
 
-    .yellowbtn {
-        @apply bg-yellow-500 hover:bg-yellow-600 shadow-yellow-500/50;
-    }
+  .yellowbtn {
+    @apply bg-yellow-500 hover:bg-yellow-600 shadow-yellow-500/50;
+  }
 
-    .navbarbtn {
-        @apply aspect-square h-7 fill-white;
-    }
+  .navbarbtn {
+    @apply aspect-square h-7 fill-white;
+  }
 
   .myfilterwidgetbtn {
     @apply myselectbtn;
@@ -65,16 +68,16 @@
 }
 
 @layer base {
-    html {
-        font-family: 'Fira Sans', sans-serif;
-        @apply text-slate-800;
-    }
+  html {
+    font-family: 'Fira Sans', sans-serif;
+    @apply text-slate-800 tracking-wide;
+  }
 
-    body {
-        @apply bg-slate-50;
-    }
+  body {
+    @apply bg-slate-50;
+  }
 
-    #app {
-        @apply h-screen;
-    }
+  #app {
+    @apply h-screen;
+  }
 }
