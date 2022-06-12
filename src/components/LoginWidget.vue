@@ -25,6 +25,7 @@ export default defineComponent({
       try {
         await this.userStore.login(this.username, this.password);
         this.loginError = '';
+        this.$router.push('/protected/dashboard');
       } catch (error) {
         if (axios.isAxiosError(error)) {
           this.loginError = parseAxiosError(error);
