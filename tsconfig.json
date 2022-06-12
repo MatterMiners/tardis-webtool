@@ -11,7 +11,11 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": [
+      "vitest/globals",
+      "vitest/importMeta"
+    ]
   },
   "references": [
     {

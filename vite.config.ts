@@ -27,5 +27,11 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'happy-dom',
+    // includeSource: ['src/**/*.ts'],
   },
 });
+
+// Add this in production to disable in-source tests
+// + define: {
+//   +   'import.meta.vitest': 'undefined',
+//   + },
