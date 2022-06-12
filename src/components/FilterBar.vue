@@ -88,6 +88,12 @@ export default defineComponent({
       droneStore,
     };
   },
+  props: {
+    shown: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data() {
     return {
       statesExpanded: false,
@@ -97,9 +103,6 @@ export default defineComponent({
         { label: 'RR UUID', type: 'rruuid' },
       ] as { label: string; type: filterTypes }[],
     };
-  },
-  created() {
-    this.filterStore.fetchAll();
   },
   methods: {
     addFilter(filter: Filter) {
@@ -135,6 +138,11 @@ export default defineComponent({
   watch: {
     filteredDrones() {
       this.droneStore.filteredDrones = this.filteredDrones;
+    },
+    shown(newValue: boolean) {
+      if (newValue) {
+        this.filterStore.fetchAll();
+      }
     },
   },
   components: { FilterWidget, SelectWidget, SelectTextCombo },

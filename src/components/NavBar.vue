@@ -157,6 +157,7 @@ export default defineComponent({
   </section>
   <FilterBar
     v-show="filterOn"
+    :shown="filterOn"
     :class="{ 'border-t border-slate-200': filterOn }"
   />
 </template>
