@@ -3,6 +3,7 @@ import { loginUser, logoutUser } from '@/api/userCalls';
 import { unwrap, unwrapLog } from '@/util';
 import { defineStore } from 'pinia';
 import { useDrones } from './droneStore';
+import { useFilters } from './filterStore';
 
 // persistent because userData doesn't change much (at all) during a session and doesn't have to be pulled regularily.
 // But the user session has to be persistent across reloads
@@ -40,6 +41,7 @@ export const useUsers = defineStore('usersStore', {
       // TODO: Find a way to reset all stores at once
       this.$reset();
       useDrones().$reset();
+      useFilters().$reset();
 
       this.loggedIn = false;
       console.log('User logged out');
