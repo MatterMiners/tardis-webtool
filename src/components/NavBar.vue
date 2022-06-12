@@ -32,11 +32,8 @@ export default defineComponent({
 
 <template>
   <section
-    class="flex items-center p-4 bg-white sticky h-20 top-0 z-10 w-full"
-    :class="{
-      'shadow-md': !filterOn,
-      'border-b border-slate-200': filterOn,
-    }"
+    class="flex items-center p-4 bg-white sticky h-20 top-0 z-10 w-ful"
+    :class="{ 'shadow-md': !filterOn }"
   >
     <router-link to="/">
       <img
@@ -158,5 +155,8 @@ export default defineComponent({
       </router-link>
     </nav>
   </section>
-  <FilterBar v-if="filterOn" />
+  <FilterBar
+    v-show="filterOn"
+    :class="{ 'border-t border-slate-200': filterOn }"
+  />
 </template>
