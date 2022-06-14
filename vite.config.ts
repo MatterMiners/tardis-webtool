@@ -27,6 +27,9 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'happy-dom',
+    coverage: {
+      all: true,
+    },
     // includeSource: ['src/**/*.ts'],
   },
 });

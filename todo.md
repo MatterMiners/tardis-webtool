@@ -3,12 +3,13 @@
 ## High priority
 
 - [ ] Write tests
-- [ ] Move the refreshDrones stuff from NavBar.vue to mounted() on DroneGrid
-- [ ] Security bug: all fetched Data remains in memory when logging out. So the next user can read from other user.
-  - [ ] Solution: make a global Watcher for authStore.loggedIn. Whenever it changes to false delete all Session Data.
-  - [ ] Save all session data in some Object.
-- [ ] refactor al droneFunctions from sessionStore into droneStore
 
+- [x] refactor al droneFunctions from sessionStore into droneStore
+- [x] Move the refreshDrones stuff from NavBar.vue to mounted() on DroneGrid
+- [x] Security bug: all fetched Data remains in memory when logging out. So the next user can read from other user.
+  - [x] Solution: make a global Watcher for authStore.loggedIn. Whenever it changes to false delete all Session Data.
+  - [x] Save all session data in some Object.
+  - [x] Was fixed: Altough not like mentioned above. See at commits to see details. In short: added persistens pinia store to store loggedIn param
 - [x] Update API to use cookie token. (Almost done but usable as is. Only csrf tokens missing)
 - [x] Store token in Cookie with SameSite=strict, secure and http-only on.
 - [x] Welches feld soll hervorgehoben werden -> State
@@ -18,41 +19,42 @@
 
 ### Routing
 
-- [x] Find a fitting routing method. (Vue router)
-- [ ] Use beforeEach to check if user is authenticated or redirect to login
 - [ ] Use beforeResolve hook to fetch droneData before loading components dependent on droneData. Do not fetch directly after login succeeds.
-- [ ] Fetch filter values at the same time as droneData (but cache it somehow)
-- [ ] Use meta fields in routes to define authorization required 
 - [ ] Use per-component hooks to run checks/??? before requesting /{drone_uuid}/xxx routes
 - [ ] redirect to dashboard on successful login (independent of auth checking)
-- [ ] Introduce Filterbar as separate named view in Main.vue
+
+- [x] Introduce Filterbar as separate named view in Main.vue
+- [x] Find a fitting routing method. (Vue router)
+- [x] Use beforeEach to check if user is authenticated or redirect to login
+- [x] Fetch filter values at the same time as droneData (but cache it somehow)
+- [x] Use meta fields in routes to define authorization required 
 
 ### Filter System
 
-- [ ] Filter implementieren (nach site, updated befor etc.)
-- [ ] Drone nach uuid suchen filtern ()
-- [ ] Dropdown mit allen dronen per ajax ziehen
+- [x] Filter implementieren (nach site, updated befor etc.)
+- [x] Drone nach uuid suchen filtern ()
+- [x] Dropdown mit allen dronen per ajax ziehen
 
 ## Medium priority
 
 - [ ] power off button : shut down drone
-- [ ] Maybe remove all the request headers if unnecessary
+- [x] Maybe remove all the request headers if unnecessary
 - [ ] Edit button: Update hook to api
-- [ ] Ability to shut down drones
-- [ ] Better "server not responding handling". Currently just halts and only throws error when reloading page.
-- [ ] Enable log out and login with different user
+- [x] Better "server not responding handling". Currently just halts and only throws error when reloading page.
+- [x] Enable log out and login with different user
 - [ ] Enable Registering a new user
 - [ ] Implement tooltips about machine type for example with fetching
 - [ ] Implement automatic token refresh in frontend
 - [ ] Implement login with scopes sometime in the future. Scopes as dropdown
-- [ ] Make refresh button appear only when logged in
-- [ ] Using reactivity API to track authStore logged in state to enable/disable automatic fetch of droneData
-- [ ] Add user:get scopes as constants
-- [ ] Add Login Button
-- [ ] Add proper landing page
-- [ ] Disable logout button when not logged in
-- [ ] Make protected route and put everything where authentication is needed in there
-- [ ] If I need a link that doesn't precede /protected I can simply use an alias
+- [x] Make refresh button appear only when logged in
+- [x] Using reactivity API to track authStore logged in state to enable/disable automatic fetch of droneData
+- [x] Add user:get scopes as constants
+- [x] Add Login Button
+- [~] Add proper landing page
+- [x] Disable logout button when not logged in
+- [x] Make protected route and put everything where authentication is needed in there
+- [x] NavBar shifts 1px when collapsing filter bar when using v-show instead of v-if on FilterBar
+- [x] If I need a link that doesn't precede /protected I can simply use an alias
 - [ ] Add tooltips over button hover
 - [ ] Make global exception handler to display exceptions in NavBar
 - [ ] Route back to login when receiving 401 or 403 respons

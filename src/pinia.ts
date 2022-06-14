@@ -6,21 +6,21 @@ export const pinia = createPinia();
 
 pinia.use(piniaPluginPersistedstate);
 
-var stores: Store[] = [];
+// var stores: Store[] = [];
 
-pinia.use(({ store }) => {
-  stores.push(store);
-});
+// pinia.use(({ store }) => {
+//   stores.push(store);
+// });
 
-/**
- * Resets all available pinia stores.
- * Is called on each logout
- * Unfortunately doesn't work :(
- * TODO: Make work
- */
-export function resetAllStores(): void {
-  stores.forEach((store) => {
-    store.$reset();
-  });
-  stores = [];
-}
+// /**
+//  * Resets all available pinia stores.
+//  * Is called on each logout
+//  * Unfortunately doesn't work :(
+//  * TODO: Make work
+//  */
+// export function resetAllStores(): void {
+//   stores.forEach((store) => {
+//     store.$reset();
+//   });
+//   stores = [];
+// }
