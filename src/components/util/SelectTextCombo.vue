@@ -1,4 +1,5 @@
 <script lang="ts">
+import { clickOutsideDirective } from '@/directives';
 import { defineComponent, type PropType } from 'vue';
 
 export default defineComponent({
@@ -7,6 +8,9 @@ export default defineComponent({
       expanded: false,
       typedFilter: '',
     };
+  },
+  directives: {
+    clickoutside: clickOutsideDirective,
   },
   props: {
     data: {
