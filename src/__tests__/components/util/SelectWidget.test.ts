@@ -1,11 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/vue';
 import SelectWidget from '@/components/util/SelectWidget.vue';
-
-function isCollapsed() {
-  expect(screen.queryByRole('list')).toBeFalsy();
-  expect(screen.queryByText('foo')).toBeNull();
-  expect(screen.queryByText('bar')).toBeNull();
-}
+import { isCollapsed } from './util';
 
 describe('SelectWidget', () => {
   beforeEach(() => {
