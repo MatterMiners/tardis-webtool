@@ -8,11 +8,16 @@ export default defineComponent({
       required: true,
     },
   },
+  methods: {
+    onClick() {
+      this.$emit('deleteFilter');
+    },
+  },
 });
 </script>
 
 <template>
-  <button class="myselectbtn" @click="$emit('deleteFilter')">
+  <button class="myselectbtn" @click="onClick">
     <p>
       {{ label }}
     </p>
