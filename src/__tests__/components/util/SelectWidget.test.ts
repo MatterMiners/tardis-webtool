@@ -1,10 +1,17 @@
-import { render, screen, fireEvent } from '@testing-library/vue';
+import {
+  render,
+  screen,
+  fireEvent,
+  type RenderResult,
+} from '@testing-library/vue';
 import SelectWidget from '@/components/util/SelectWidget.vue';
 import { isCollapsed } from './util';
 
 describe('SelectWidget', () => {
+  let renderResult: RenderResult;
+
   beforeEach(() => {
-    render(SelectWidget, {
+    renderResult = render(SelectWidget, {
       props: {
         data: ['foo', 'bar'],
         label: 'XXX',
@@ -17,6 +24,16 @@ describe('SelectWidget', () => {
     expect(screen.getByText('XXX')).toBeTruthy();
   });
 
+  selectWidgetTests(['foo', 'bar']);
+
+  test('emits click event', async () => {
+    await fireEvent.click(screen.getByRole('button'));
+    await fireEvent.click(screen.getByText('foo'));
+    expect(renderResult.emitted().clickedItem).toBeTruthy();
+  });
+});
+
+export function selectWidgetTests(data: string[]) {
   test('is collapsed initially', () => {
     isCollapsed();
   });
@@ -24,8 +41,8 @@ describe('SelectWidget', () => {
   test('is expanded when clicked', async () => {
     await fireEvent.click(screen.getByRole('button'));
     expect(screen.getByRole('list')).toBeTruthy();
-    expect(screen.getByText('foo')).toBeTruthy();
-    expect(screen.getByText('bar')).toBeTruthy();
+    expect(screen.getByText(data[0])).toBeTruthy();
+    expect(screen.getByText(data[1])).toBeTruthy();
   });
 
   test('is collapsed when clicked again', async () => {
@@ -40,4 +57,4 @@ describe('SelectWidget', () => {
     await fireEvent.click(document.body);
     isCollapsed();
   });
-});
+}
