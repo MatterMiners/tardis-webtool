@@ -10,7 +10,7 @@ export default defineComponent({
     };
   },
   directives: {
-    clickoutside: clickOutsideDirective,
+    clickOutside: clickOutsideDirective,
   },
   props: {
     data: {
@@ -80,7 +80,7 @@ export default defineComponent({
 
 <style lang="postcss">
 .override-btn {
-  @apply rounded-r-none  shadow-none !important;
+  @apply rounded-r-none shadow-none !important;
 }
 
 .override-text {
