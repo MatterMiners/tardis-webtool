@@ -1,13 +1,10 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { setActivePinia, createPinia, type Store } from 'pinia';
+import { setActivePinia, createPinia } from 'pinia';
 import { makeOk, makeStrError } from '@/util';
-import { createApp } from 'vue';
 import { useUsers } from '@/store/userStore';
 import * as users from '@/api/userCalls';
 import { useFilters } from '@/store/filterStore';
 import { useDrones } from '@/store/droneStore';
-
-let stores: Store[] = [];
 
 vi.mock('@/api/userCalls', () => {
   return {
