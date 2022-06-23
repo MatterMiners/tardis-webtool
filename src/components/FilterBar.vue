@@ -134,6 +134,9 @@ export default defineComponent({
       });
       return filteredDrones;
     },
+    numDrones() {
+      return this.filteredDrones.length;
+    },
   },
   watch: {
     filteredDrones() {
@@ -155,7 +158,8 @@ export default defineComponent({
   >
     <div class="widget-container flex flex-col sm:flex-row items-center mx-2">
       <h3 class="text-lg mr-3 mb-3 sm:mb-0 whitespace-nowrap">
-        <span class="font-semibold">{{ filteredDrones.length }}</span> Drones
+        <span class="font-semibold">{{ numDrones }}</span>
+        {{ numDrones == 1 ? 'Drone' : 'Drones' }}
       </h3>
       <!-- didn't find a way to specify type as a filterTypes but im too tired now -->
       <div class="flex flex-wrap items-center">
