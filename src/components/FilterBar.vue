@@ -161,7 +161,10 @@ export default defineComponent({
       />
     </div>
     <!-- didn't find a way to specify type as a filterTypes but im too tired now -->
-    <div class="flex ml-auto">
+    <div class="flex items-center ml-auto">
+      <h3 class="text-lg mx-3">
+        <span class="font-semibold">{{ filteredDrones.length }}</span> Drones
+      </h3>
       <SelectTextCombo
         label="Field"
         :data="typedFilters"
