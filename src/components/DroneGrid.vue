@@ -18,7 +18,7 @@ export default defineComponent({
 
 <template>
   <div
-    class="grid 3xl:grid-cols-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mt-2"
+    class="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-2"
   >
     <DroneWidget
       v-for="drone in droneStore.filteredDrones"
