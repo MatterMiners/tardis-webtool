@@ -22,7 +22,7 @@
   }
 
   .myselectul {
-    @apply absolute border bg-white rounded py-1 cursor-pointer shadow-sm;
+    @apply absolute border bg-white rounded py-1 cursor-pointer shadow-sm z-20;
   }
 
   .myselectli {

@@ -151,49 +151,61 @@ export default defineComponent({
 
 <template>
   <section
-    class="flex p-3 bg-white shadow-md sticky z-10 top-20 w-full flex-wrap sm:flex-row sm:items-center"
+    class="flex flex-col pt-3 pb-2 bg-white shadow-md sticky z-10 top-20 w-full items-center"
   >
+    <div class="widget-container flex flex-col sm:flex-row items-center mx-2">
+      <h3 class="text-lg mr-3 mb-3 sm:mb-0 whitespace-nowrap">
+        <span class="font-semibold">{{ filteredDrones.length }}</span> Drones
+      </h3>
+      <!-- didn't find a way to specify type as a filterTypes but im too tired now -->
+      <div class="flex flex-wrap items-center">
+        <SelectTextCombo
+          label="Field"
+          :data="typedFilters"
+          @clicked-item="(data) => addTextFilter(data)"
+        />
+
+        <SelectWidget
+          label="Select State"
+          :data="allStates"
+          @clicked-item="
+            (filterLabel) => addFilter({ label: filterLabel, type: 'state' })
+          "
+        />
+        <SelectWidget
+          label="Select Site"
+          :data="allSites"
+          @clicked-item="
+            (filterLabel) => addFilter({ label: filterLabel, type: 'site' })
+          "
+        />
+        <SelectWidget
+          label="Select Machine"
+          :data="allMachineTypes"
+          @clicked-item="
+            (filterLabel) => addFilter({ label: filterLabel, type: 'machine' })
+          "
+        />
+      </div>
+    </div>
+
     <!-- filter widgets -->
-    <div class="flex items-center" v-for="filter in filters">
+    <div
+      class="flex flex-row flex-wrap items-center pt-1 mx-2 border-t sm:pt-0 sm:border-none"
+    >
       <FilterWidget
+        v-for="filter in filters"
         class="m-1"
         :key="filter.label"
         :label="filter.label"
         @delete-filter="filters = deleteFilter(filter)"
       />
     </div>
-    <!-- didn't find a way to specify type as a filterTypes but im too tired now -->
-    <div class="flex items-center ml-auto flex-col sm:flex-row">
-      <h3 class="text-lg mx-3">
-        <span class="font-semibold">{{ filteredDrones.length }}</span> Drones
-      </h3>
-      <SelectTextCombo
-        label="Field"
-        :data="typedFilters"
-        @clicked-item="(data) => addTextFilter(data)"
-      />
-
-      <SelectWidget
-        label="Select State"
-        :data="allStates"
-        @clicked-item="
-          (filterLabel) => addFilter({ label: filterLabel, type: 'state' })
-        "
-      />
-      <SelectWidget
-        label="Select Site"
-        :data="allSites"
-        @clicked-item="
-          (filterLabel) => addFilter({ label: filterLabel, type: 'site' })
-        "
-      />
-      <SelectWidget
-        label="Select Machine"
-        :data="allMachineTypes"
-        @clicked-item="
-          (filterLabel) => addFilter({ label: filterLabel, type: 'machine' })
-        "
-      />
-    </div>
   </section>
 </template>
+
+<style scoped lang="postcss">
+.widget-container * {
+  @apply m-1;
+}
+</style>

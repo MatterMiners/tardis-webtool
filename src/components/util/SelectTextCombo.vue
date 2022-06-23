@@ -41,7 +41,7 @@ export default defineComponent({
 
 <template>
   <!-- Something isn't right about the positioning of the dropdown menu -->
-  <div class="flex mx-1 shadow-sm">
+  <div class="flex mx-1 shadow-sm h-min">
     <div class="myselectcontainer" v-click-outside="collapse">
       <button class="myselectbtn override-btn w-32" @click="toggle">
         <p>{{ label }}</p>
@@ -78,7 +78,7 @@ export default defineComponent({
   </div>
 </template>
 
-<style lang="postcss">
+<style scoped lang="postcss">
 .override-btn {
   @apply rounded-r-none shadow-none !important;
 }
