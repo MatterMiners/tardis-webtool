@@ -150,18 +150,20 @@ export default defineComponent({
 </script>
 
 <template>
-  <section class="flex p-3 bg-white shadow-md sticky z-10 top-20 w-full">
+  <section
+    class="flex p-3 bg-white shadow-md sticky z-10 top-20 w-full flex-wrap sm:flex-row sm:items-center"
+  >
     <!-- filter widgets -->
     <div class="flex items-center" v-for="filter in filters">
       <FilterWidget
-        class="mx-1"
+        class="m-1"
         :key="filter.label"
         :label="filter.label"
         @delete-filter="filters = deleteFilter(filter)"
       />
     </div>
     <!-- didn't find a way to specify type as a filterTypes but im too tired now -->
-    <div class="flex items-center ml-auto">
+    <div class="flex items-center ml-auto flex-col sm:flex-row">
       <h3 class="text-lg mx-3">
         <span class="font-semibold">{{ filteredDrones.length }}</span> Drones
       </h3>

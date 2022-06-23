@@ -24,7 +24,7 @@ export default defineComponent({
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 320 512"
-      class="fill-slate-400 h-4 pl-3"
+      class="pl-3 h-4 fill-slate-400"
     >
       <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
       <path
