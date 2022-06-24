@@ -29,3 +29,12 @@ export async function logoutUser(): Promise<Result<string>> {
     return makeError(error);
   }
 }
+
+export async function refreshSession(): Promise<Result<string>> {
+  try {
+    await axios.post('/api/tardis/user/refresh');
+    return makeOk('Session refreshed');
+  } catch (error) {
+    return makeError(error);
+  }
+}
