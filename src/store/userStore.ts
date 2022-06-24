@@ -1,5 +1,6 @@
 import type { UserData } from '@/api/apitypes';
 import { loginUser, logoutUser } from '@/api/userCalls';
+import router from '@/router/router';
 import { unwrap, unwrapLog } from '@/util';
 import { defineStore } from 'pinia';
 import { useDrones } from './droneStore';
@@ -27,6 +28,8 @@ export const useUsers = defineStore('usersStore', {
       const user = unwrap(res);
       this.userData = user;
       this.loggedIn = true;
+
+      router.push({ name: 'dashboard' });
       console.log('Logged in!');
     },
     async logout() {
@@ -44,6 +47,8 @@ export const useUsers = defineStore('usersStore', {
       useFilters().$reset();
 
       this.loggedIn = false;
+
+      router.push({ name: 'login' });
       console.log('User logged out');
     },
     /**

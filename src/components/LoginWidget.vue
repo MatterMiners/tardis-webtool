@@ -3,34 +3,37 @@ import axios from 'axios';
 import { storeToRefs } from 'pinia';
 import { defineComponent } from 'vue';
 import { useUsers } from '@/store/userStore';
-import { parseAxiosError } from '@/api/util';
+import { setAxiosLoginError } from '@/api/util';
 import ColoredTextButton from './util/ColoredTextButton.vue';
+import { useErrors } from '@/store/errorStore';
 
 export default defineComponent({
   setup() {
     const userStore = useUsers();
-
+    const errorStore = useErrors();
+    const { loginErrorMsg } = storeToRefs(errorStore);
     const { loggedIn } = storeToRefs(userStore);
-    return { loggedIn, userStore };
+    return { loggedIn, userStore, errorStore, loginErrorMsg };
   },
   data() {
     return {
       password: '',
       username: '',
-      loginError: '' as string | undefined,
     };
   },
   methods: {
     async onLogin() {
       try {
         await this.userStore.login(this.username, this.password);
-        this.loginError = '';
-        this.$router.push('/protected/dashboard');
+        this.errorStore.latestError.login.msg = '';
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          this.loginError = parseAxiosError(error);
+          setAxiosLoginError(error);
         } else {
-          this.loginError = 'Unknown Error';
+          this.errorStore.setLoginError(
+            Error('Unknown error'),
+            'Unknown error'
+          );
         }
       }
 
@@ -55,7 +58,7 @@ export default defineComponent({
     <h2 class="m-1 text-3xl font-bold text-header">Login</h2>
     <h3 class="m-2 text-xl text-slate-600">Enter your login credentials.</h3>
     <h3 class="mb-1 text-error text-md">
-      {{ loginError }}
+      {{ loginErrorMsg }}
     </h3>
     <form @submit.prevent class="flex flex-col text-slate-600">
       <input
