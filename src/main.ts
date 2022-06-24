@@ -4,6 +4,7 @@ import { clickOutsideDirective } from './directives';
 import './index.css';
 import { pinia } from './pinia';
 import router from './router/router';
+import '@/api/interceptors';
 
 const app = createApp(App);
 
