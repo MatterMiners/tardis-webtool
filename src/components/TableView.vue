@@ -18,7 +18,7 @@ export default defineComponent({
 
 <template>
   <div
-    class="grow self-stretch m-5 bg-white rounded shadow-md flex flex-col overflow-x-scroll border border-b-0"
+    class="grow self-stretch sm:m-5 bg-white rounded shadow-md flex flex-col overflow-x-scroll border border-b-0"
   >
     <table class="h-min">
       <thead class="border-b">
