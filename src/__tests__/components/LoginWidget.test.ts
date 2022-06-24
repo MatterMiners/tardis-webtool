@@ -22,8 +22,6 @@ describe('LoginWidget', () => {
     expect(inputs[1].getAttribute('placeholder')).toMatch(/password/i);
     // login button is present
     expect(screen.getByRole('button', { name: /login/i })).toBeTruthy();
-    // register button is present
-    expect(screen.getByRole('button', { name: /register/i })).toBeTruthy();
   });
 
   test('login button works (no errors)', async () => {
@@ -58,14 +56,6 @@ describe('LoginWidget', () => {
     expect(loginButton.getAttribute('disabled')).toBe('true');
     await enterCredentials('foo', 'bar');
     expect(loginButton.getAttribute('disabled')).toBe('false');
-  });
-
-  // fails, as registration isn't implemented yet
-  test('register button works', async () => {
-    const registerButton = screen.getByRole('button', { name: /register/i });
-    await fireEvent.click(registerButton);
-    // and somehow test routing to register widget
-    expect(loginStore.register).toHaveBeenCalled();
   });
 });
 

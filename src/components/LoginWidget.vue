@@ -78,11 +78,6 @@ export default defineComponent({
           class="px-4 mx-2 mt-3"
           :disabled="credentialsEmpty"
         />
-        <ColoredTextButton
-          label="Register"
-          btnColorClass="bluebtn"
-          class="px-4 mx-2 mt-3"
-        />
       </div>
     </form>
   </div>
