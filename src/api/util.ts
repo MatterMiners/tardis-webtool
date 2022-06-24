@@ -5,6 +5,7 @@ import {
   throttleAdapterEnhancer,
   cacheAdapterEnhancer,
 } from 'axios-extensions';
+import { useErrors } from '@/store/errorStore';
 
 // set timeout to 2 seconds in case api is not reachable
 axios.defaults.timeout = 2000;
@@ -19,21 +20,23 @@ export function makeFetchError<T>(error: any): Result<T> {
   return makeError(error);
 }
 
-export function parseAxiosError(error: AxiosError): string {
-  // for now error codes will be displayed
+export function setAxiosLoginError(error: AxiosError) {
+  let errMsg = '';
   if (error.response) {
     var details = (error.response.data as any).detail;
   }
 
   if (details) {
-    return details;
+    errMsg = details;
   } else if (error.code == 'ECONNABORTED') {
-    return 'Connection Timed Out';
+    errMsg = 'Connection Timed Out';
   } else if (error.code) {
-    return error.code;
+    errMsg = error.code;
   } else {
-    return 'Unknown Fetch Error';
+    errMsg = 'Unknown Error';
   }
+
+  useErrors().setLoginError(error, errMsg);
 }
 
 // only used for caching. Maybe implement also for all other stores

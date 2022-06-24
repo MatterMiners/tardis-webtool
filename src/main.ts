@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { clickOutsideDirective } from './directives';
 import './index.css';
 import { pinia } from './pinia';
 import router from './router/router';

@@ -30,4 +30,13 @@ export const useErrors = defineStore('errorStore', {
       this.latestError.general = { err, msg };
     },
   },
+  getters: {
+    loginErrorMsg: (state) => {
+      let latestError = state.latestError.login;
+      if (latestError) {
+        return latestError.msg;
+      }
+      return '';
+    },
+  },
 });
