@@ -9,7 +9,7 @@ export default defineComponent({
 
 <template>
   <div class="min-h-screen flex flex-col">
-    <NavBar />
+    <NavBar class="z-10" />
     <main class="flex flex-col items-center h-full self-stretch grow">
       <router-view></router-view>
     </main>

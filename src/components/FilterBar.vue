@@ -154,7 +154,7 @@ export default defineComponent({
 
 <template>
   <section
-    class="flex flex-col pt-3 pb-2 bg-white shadow-md sticky z-10 top-20 w-full items-center"
+    class="flex flex-col pt-3 pb-2 bg-white shadow-md sticky top-20 w-full items-center"
   >
     <div class="widget-container flex flex-col sm:flex-row items-center mx-2">
       <h3 class="text-lg mr-3 mb-3 sm:mb-0 whitespace-nowrap">
@@ -162,7 +162,7 @@ export default defineComponent({
         {{ numDrones == 1 ? 'Drone' : 'Drones' }}
       </h3>
       <!-- didn't find a way to specify type as a filterTypes but im too tired now -->
-      <div class="flex flex-wrap items-center">
+      <div class="flex flex-wrap items-center justify-center">
         <SelectTextCombo
           label="Field"
           :data="typedFilters"
@@ -195,7 +195,7 @@ export default defineComponent({
 
     <!-- filter widgets -->
     <div
-      class="flex flex-row flex-wrap items-center pt-1 mx-2 border-t sm:pt-0 sm:border-none"
+      class="flex flex-row flex-wrap justify-center items-center pt-1 mx-2 border-t sm:pt-0 sm:border-none"
     >
       <FilterWidget
         v-for="filter in filters"
