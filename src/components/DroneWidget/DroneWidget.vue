@@ -27,12 +27,12 @@ export default defineComponent({
   <div class="relative h-min">
     <button
       @click="collapse = !collapse"
-      class="aspect-square flex absolute inset-x-0 -bottom-2 place-content-center mx-auto w-8 bg-slate-200 hover:bg-slate-300 rounded-full transition-colors duration-150"
+      class="aspect-square flex absolute inset-x-0 -bottom-4 sm:-bottom-1 place-content-center mx-auto w-8 bg-slate-200 hover:bg-slate-300 rounded-full transition-colors duration-150"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 320 512"
-        class="w-fit transition-transform duration-500 fill-white"
+        class="h-8 transition-transform duration-500 fill-white"
         :class="{ 'rotate-180': !collapse }"
       >
         <!-- Arrow -->
@@ -43,9 +43,11 @@ export default defineComponent({
     </button>
     <div
       :class="{ 'overflow-hidden h-24': collapse }"
-      class="flex flex-col justify-between p-5 m-3 min-w-fit bg-white rounded-md shadow-md"
+      class="flex flex-col justify-between sm:p-5 sm:m-3 bg-white sm:rounded-md shadow-md"
     >
-      <div class="flex relative justify-between items-center mb-3">
+      <div
+        class="flex relative justify-between items-center px-5 sm:px-2 pt-5 sm:pt-0 pb-3"
+      >
         <div class="text-left">
           <h2 class="text-xl font-bold text-header">
             {{ droneData.drone_uuid }}
@@ -68,12 +70,12 @@ export default defineComponent({
         </ColoredSlotButton>
       </div>
 
-      <DroneWidgetTable :droneData="droneData" />
-      <ColoredTextButton
+      <DroneWidgetTable :droneData="droneData" class="mb-5 sm:mb-0" />
+      <!-- <ColoredTextButton
         label="Edit"
         btnColorClass="bluebtn"
         class="mt-5 text-lg"
-      />
+      /> -->
     </div>
   </div>
 </template>

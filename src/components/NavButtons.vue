@@ -1,4 +1,5 @@
 <script lang="ts">
+import { clickOutsideDirective } from '@/directives';
 import { defineComponent } from 'vue';
 import ColoredSlotButton from './util/ColoredSlotButton.vue';
 
@@ -12,6 +13,7 @@ export default defineComponent({
       required: true,
       type: Boolean,
     },
+
     expanded: {
       required: true,
       type: Boolean,

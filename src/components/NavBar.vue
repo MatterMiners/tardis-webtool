@@ -7,6 +7,7 @@ import { useUsers } from '@/store/userStore';
 import FilterBar from '@/components/FilterBar.vue';
 import NavButtons from './NavButtons.vue';
 import NavBarExpandButton from './util/NavBarExpandButton.vue';
+import { clickOutsideDirective } from '@/directives';
 
 export default defineComponent({
   setup() {
@@ -22,6 +23,9 @@ export default defineComponent({
       navButtonsExpanded: false,
       sideBarExpanded: false,
     };
+  },
+  directives: {
+    clickOutside: clickOutsideDirective,
   },
   watch: {
     loggedIn(newValue: boolean) {

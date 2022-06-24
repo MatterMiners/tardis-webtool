@@ -37,6 +37,7 @@
 
 ## Medium priority
 
+- [ ] Make sidebar disapear when clicked outside
 - [ ] power off button : shut down drone
 - [x] Maybe remove all the request headers if unnecessary
 - [ ] Edit button: Update hook to api

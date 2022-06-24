@@ -11,7 +11,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="mt-2 rounded border border-slate-300">
+  <div class="mt-2 sm:rounded border-y sm:border border-slate-300">
     <table class="w-full border-collapse table-auto">
       <thead>
         <tr>
