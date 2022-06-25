@@ -8,14 +8,16 @@ import FilterBar from '@/components/FilterBar.vue';
 import NavButtons from './NavButtons.vue';
 import NavBarExpandButton from './util/NavBarExpandButton.vue';
 import { clickOutsideDirective } from '@/directives';
+import { useErrors } from '@/store/errorStore';
 
 export default defineComponent({
   setup() {
     const userStore = useUsers();
     const droneStore = useDrones();
+    const { generalErrorMsg } = storeToRefs(useErrors());
 
     const { loggedIn } = storeToRefs(userStore);
-    return { loggedIn, userStore, droneStore };
+    return { loggedIn, userStore, droneStore, generalErrorMsg };
   },
   data() {
     return {
@@ -56,7 +58,7 @@ export default defineComponent({
     >
       WebTool
     </h1>
-    <p class="text-xl sm:mr-3">Latest Error</p>
+    <p class="text-xl sm:mr-3">{{ generalErrorMsg }}</p>
 
     <NavBarExpandButton
       @click="sideBarExpanded = !sideBarExpanded"

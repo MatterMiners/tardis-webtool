@@ -38,5 +38,12 @@ export const useErrors = defineStore('errorStore', {
       }
       return '';
     },
+    generalErrorMsg: (state) => {
+      let latestError = state.latestError.general;
+      if (latestError) {
+        return latestError.msg;
+      }
+      return '';
+    },
   },
 });
