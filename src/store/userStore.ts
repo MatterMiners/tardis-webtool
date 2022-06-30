@@ -4,6 +4,7 @@ import router from '@/router/router';
 import { unwrap, unwrapLog } from '@/util';
 import { defineStore } from 'pinia';
 import { useDrones } from './droneStore';
+import { useErrors } from './errorStore';
 import { useFilters } from './filterStore';
 
 // persistent because userData doesn't change much (at all) during a session and doesn't have to be pulled regularily.

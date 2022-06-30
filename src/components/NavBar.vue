@@ -58,7 +58,7 @@ export default defineComponent({
     >
       WebTool
     </h1>
-    <p class="text-xl sm:mr-3">{{ generalErrorMsg }}</p>
+    <p class="text-xl sm:mr-3 text-error">{{ generalErrorMsg }}</p>
 
     <NavBarExpandButton
       @click="sideBarExpanded = !sideBarExpanded"

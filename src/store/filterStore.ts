@@ -5,6 +5,7 @@ import {
 } from '@/api/filterCalls';
 import { unwrap } from '@/util';
 import { defineStore } from 'pinia';
+import { useErrors } from './errorStore';
 
 export const useFilters = defineStore('filterStore', {
   state: () => ({
@@ -15,11 +16,21 @@ export const useFilters = defineStore('filterStore', {
   actions: {
     async fetchAll() {
       try {
-        this.allStates = unwrap(await getAllStates(true));
-        this.allSites = unwrap(await getAllSites(true));
-        this.allMachineTypes = unwrap(await getAllMachineTypes(true));
+        if (this.allStates.length === 0) {
+          this.allStates = unwrap(await getAllStates());
+        }
+        if (this.allSites.length === 0) {
+          this.allSites = unwrap(await getAllSites());
+        }
+        if (this.allMachineTypes.length === 0) {
+          this.allMachineTypes = unwrap(await getAllMachineTypes());
+        }
       } catch (error) {
         console.log('Error while fetching all filters:', error);
+        useErrors().setGeneralError(
+          error as Error,
+          'Error while fetching all filters!'
+        );
       }
     },
   },

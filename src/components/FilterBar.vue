@@ -8,11 +8,60 @@ import FilterWidget from './FilterWidgets/FilterWidget.vue';
 import SelectWidget from './util/SelectWidget.vue';
 import SelectTextCombo from './util/SelectTextCombo.vue';
 
-type filterTypes = 'state' | 'site' | 'machine' | 'droneuuid' | 'rruuid';
+type filterTypes =
+  | 'state'
+  | 'site'
+  | 'machine'
+  | 'droneuuid'
+  | 'rruuid'
+  | 'createdBefore'
+  | 'createdAfter'
+  | 'updatedBefore'
+  | 'updatedAfter';
 
 interface Filter {
   label: string;
   type: filterTypes;
+}
+
+function displayType(type: filterTypes): string {
+  switch (type) {
+    case 'state':
+      return 'State';
+    case 'site':
+      return 'Site';
+    case 'machine':
+      return 'Machine';
+    case 'droneuuid':
+      return 'Drone UUID';
+    case 'rruuid':
+      return 'RR UUID';
+    case 'createdBefore':
+      return 'Created Before';
+    case 'createdAfter':
+      return 'Created After';
+    case 'updatedBefore':
+      return 'Updated Before';
+    case 'updatedAfter':
+      return 'Updated After';
+    default:
+      return 'Unknown';
+  }
+}
+
+function notADate(input: string): boolean {
+  return isNaN(Date.parse(input));
+}
+
+/**
+ * Returns < 0 if a is before b, 0 if they are equal, and > 0 if a is after b.
+ * @param a {string} a date string in the format YYYY-MM-DDTHH:MM:SS.SSSZ
+ * @param b {string} a date string in the format YYYY-MM-DDTHH:MM:SS.SSSZ
+ */
+function getDateDiff(a: string, b: string): number {
+  const aDate = new Date(a);
+  const bDate = new Date(b);
+  return aDate.getTime() - bDate.getTime();
 }
 
 /**
@@ -32,6 +81,14 @@ function passesFilter(drone: DroneData, filter: Filter): boolean {
       return drone.drone_uuid == filter.label;
     case 'rruuid':
       return drone.remote_resource_uuid == filter.label;
+    case 'createdBefore':
+      return getDateDiff(drone.created, filter.label) < 0;
+    case 'createdAfter':
+      return getDateDiff(drone.created, filter.label) > 0;
+    case 'updatedBefore':
+      return getDateDiff(drone.updated, filter.label) < 0;
+    case 'updatedAfter':
+      return getDateDiff(drone.updated, filter.label) > 0;
   }
 }
 
@@ -99,9 +156,33 @@ export default defineComponent({
       statesExpanded: false,
       filters: [] as Filter[],
       typedFilters: [
-        { label: 'Drone UUID', type: 'droneuuid' },
-        { label: 'RR UUID', type: 'rruuid' },
-      ] as { label: string; type: filterTypes }[],
+        { label: displayType('droneuuid'), type: 'droneuuid' },
+        { label: displayType('rruuid'), type: 'rruuid' },
+        {
+          label: displayType('createdBefore'),
+          type: 'createdBefore',
+          disabledWhen: notADate,
+        },
+        {
+          label: displayType('createdAfter'),
+          type: 'updatedBefore',
+          disabledWhen: notADate,
+        },
+        {
+          label: displayType('updatedBefore'),
+          type: 'createdAfter',
+          disabledWhen: notADate,
+        },
+        {
+          label: displayType('updatedAfter'),
+          type: 'updatedAfter',
+          disabledWhen: notADate,
+        },
+      ] as {
+        label: string;
+        type: filterTypes;
+        disabledWhen?: (input: string) => boolean;
+      }[],
     };
   },
   methods: {
@@ -123,6 +204,9 @@ export default defineComponent({
     addTextFilter(data: { type: filterTypes; text: string }) {
       this.filters.push({ label: data.text, type: data.type });
     },
+    displayType(type: filterTypes): string {
+      return displayType(type);
+    },
   },
   computed: {
     /**
@@ -134,8 +218,11 @@ export default defineComponent({
       });
       return filteredDrones;
     },
-    numDrones() {
+    numFilteredDrones() {
       return this.filteredDrones.length;
+    },
+    numDrones() {
+      return this.droneData.length;
     },
   },
   watch: {
@@ -158,8 +245,10 @@ export default defineComponent({
   >
     <div class="widget-container flex flex-col sm:flex-row items-center mx-2">
       <h3 class="text-lg mr-3 mb-3 sm:mb-0 whitespace-nowrap">
-        <span class="font-semibold">{{ numDrones }}</span>
-        {{ numDrones == 1 ? 'Drone' : 'Drones' }}
+        <span class="font-semibold"
+          >{{ numFilteredDrones }} / {{ numDrones }}</span
+        >
+        Drones
       </h3>
       <!-- didn't find a way to specify type as a filterTypes but im too tired now -->
       <div class="flex flex-wrap items-center justify-center">
@@ -202,6 +291,7 @@ export default defineComponent({
         class="m-1"
         :key="filter.label"
         :label="filter.label"
+        :type="displayType(filter.type)"
         @delete-filter="filters = deleteFilter(filter)"
       />
     </div>

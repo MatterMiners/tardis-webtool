@@ -8,9 +8,18 @@ export default defineComponent({
     const droneStore = useDrones();
     return { droneStore };
   },
+  data() {
+    return {
+      sort: 'updated',
+    };
+  },
+  methods: {
+    sortBy(sort: string) {
+      this.droneStore.sortBy(sort);
+    },
+  },
   components: { DroneWidget },
   mounted() {
-    // TODO: Error handling
     this.droneStore.requestDrones();
   },
 });
@@ -18,22 +27,22 @@ export default defineComponent({
 
 <template>
   <div
-    class="grow self-stretch sm:m-5 bg-white rounded shadow-md flex flex-col overflow-x-scroll border border-b-0"
+    class="self-stretch sm:m-5 bg-white rounded shadow-md flex flex-col overflow-x-scroll border border-b-0"
   >
     <table class="h-min">
       <thead class="border-b">
         <tr class="divide-x">
-          <th>Drone UUID</th>
-          <th>RR UUID</th>
-          <th>Drone State</th>
-          <th>Site Name</th>
-          <th>Machine Type</th>
-          <th>Created</th>
-          <th>Updated</th>
+          <th @click="sortBy('drone_uuid')">Drone UUID</th>
+          <th @click="sortBy('remote_resource_uuid')">RR UUID</th>
+          <th @click="sortBy('state')">Drone State</th>
+          <th @click="sortBy('site_name')">Site Name</th>
+          <th @click="sortBy('machine_type')">Machine Type</th>
+          <th @click="sortBy('created')">Created</th>
+          <th @click="sortBy('updated')">Updated</th>
         </tr>
       </thead>
       <tbody class="divide-y">
-        <tr v-for="drone in droneStore.filteredDrones" class="divide-x">
+        <tr v-for="drone in droneStore.sortedDrones" class="divide-x">
           <th>{{ drone.drone_uuid }}</th>
           <th>{{ drone.remote_resource_uuid }}</th>
           <th>{{ drone.state }}</th>
@@ -47,12 +56,12 @@ export default defineComponent({
   </div>
 </template>
 
-<style lang="postcss">
+<style scoped lang="postcss">
 thead th {
-  @apply font-medium p-2 px-10 text-slate-700 bg-slate-50;
+  @apply font-medium p-2 px-10 text-slate-700 bg-slate-50 hover:bg-slate-100 hover:cursor-pointer;
 }
 
 tbody th {
-  @apply font-normal p-1 px-3 myth border-slate-200;
+  @apply font-normal p-1 px-3 border-slate-200 hover:bg-slate-50 hover:cursor-pointer myth;
 }
 </style>
