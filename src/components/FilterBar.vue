@@ -165,12 +165,12 @@ export default defineComponent({
         },
         {
           label: displayType('createdAfter'),
-          type: 'updatedBefore',
+          type: 'createdAfter',
           disabledWhen: notADate,
         },
         {
           label: displayType('updatedBefore'),
-          type: 'createdAfter',
+          type: 'updatedBefore',
           disabledWhen: notADate,
         },
         {
