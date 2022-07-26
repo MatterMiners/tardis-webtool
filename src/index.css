@@ -38,7 +38,7 @@
   }
 
   .mythbottom {
-    @apply border-slate-300 bg-white font-normal p-1 text-slate-500;
+    @apply border-slate-300 bg-white font-normal p-1 text-slate-500 hover:bg-slate-50 hover:cursor-pointer;
   }
 
   /*  The following classes are added, to enable dynamic button color. */
