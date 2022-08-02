@@ -23,7 +23,7 @@ export async function loginUser(
 
 export async function logoutUser(): Promise<Result<string>> {
   try {
-    await axios.delete('/api/tardis/user/logout');
+    await axios.post('/api/tardis/user/logout');
     return makeOk('Success at loggin out');
   } catch (error) {
     return makeError(error);
