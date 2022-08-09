@@ -91,7 +91,7 @@ export default defineComponent({
     </ColoredSlotButton>
 
     <router-link :to="{ name: 'login' }">
-      <ColoredSlotButton btnColorClass="bluebtn">
+      <ColoredSlotButton btnColorClass="bluebtn" :disabled="loggedIn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"

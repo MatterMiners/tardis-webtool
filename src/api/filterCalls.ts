@@ -1,13 +1,12 @@
 import { useUsers } from '@/store/userStore';
 import { makeError, makeOk, makeStrError, type Result } from '@/util';
+import axios from 'axios';
 import { isStringArray } from './apitypes';
-import { tardisHttp } from './util';
 
 // TODO: Implement a more general form of this for all the other calls
 export async function getAllUtil(
   type_name: string,
-  url: string,
-  useCache: boolean = false
+  url: string
 ): Promise<Result<string[]>> {
   const userStore = useUsers();
 
@@ -16,7 +15,7 @@ export async function getAllUtil(
   }
 
   try {
-    const resp = await tardisHttp.get(url, { cache: useCache });
+    const resp = await axios.get(url);
 
     if (!isStringArray(resp.data)) {
       return makeStrError(`${type_name} }response has invalid type`);
@@ -28,24 +27,17 @@ export async function getAllUtil(
   }
 }
 
-export async function getAllStates(
-  useCache: boolean = false
-): Promise<Result<string[]>> {
-  return await getAllUtil('getAllStates', '/types/states', useCache);
+export async function getAllStates(): Promise<Result<string[]>> {
+  return await getAllUtil('getAllStates', '/api/tardis/types/states');
 }
 
-export async function getAllMachineTypes(
-  useCache: boolean = false
-): Promise<Result<string[]>> {
+export async function getAllMachineTypes(): Promise<Result<string[]>> {
   return await getAllUtil(
     'getAllMachineTypes',
-    '/types/machine_types',
-    useCache
+    '/api/tardis/types/machine_types'
   );
 }
 
-export async function getAllSites(
-  useCache: boolean = false
-): Promise<Result<string[]>> {
-  return await getAllUtil('getAllSites', '/types/sites', useCache);
+export async function getAllSites(): Promise<Result<string[]>> {
+  return await getAllUtil('getAllSites', '/api/tardis/types/sites');
 }

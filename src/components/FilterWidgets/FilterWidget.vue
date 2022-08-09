@@ -7,6 +7,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    type: String,
   },
   methods: {
     onClick() {
@@ -18,7 +19,10 @@ export default defineComponent({
 
 <template>
   <button class="myselectbtn" @click="onClick">
-    <p>
+    <p class="font-semibold border-r pr-2 text-slate-700 h-full">
+      {{ type }}
+    </p>
+    <p class="pl-2">
       {{ label }}
     </p>
     <svg
