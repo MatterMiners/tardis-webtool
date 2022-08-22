@@ -28,6 +28,8 @@ As of now the app is still in development. Thus it is run with the vite dev serv
 npm run dev
 ```
 
+The vite proxy settings are configured to a REST API running on `http://localhost:4321`. Make this setting lines up with the REST API config.
+
 ## Testing
 
 There are multiple frameworks in use for testing:
@@ -36,7 +38,7 @@ There are multiple frameworks in use for testing:
 **vue testing library** for isolated component testing
 **cypress** for E2E testing
 
-To run tests there are multiple possibilities (currently only vitest):
+To run tests there are multiple possibilities:
 
 ```sh
 npm run test
@@ -53,8 +55,12 @@ for continuous cli testing with coverage results (cov results are also saved in 
 ```sh
 npm run test:ui
 ```
-
 for an additional ui webinterface.
+To open cypress:
+
+```sh
+npm run cypress:open
+```
 
 [These](https://vuejs.org/guide/scaling-up/testing.html#component-testing) recommendations for testing will be used in this project.
 That means:
@@ -62,11 +68,12 @@ That means:
 - unit testing for logic only *.ts* files like util
 - semi-isolated component testing with minimal mocking with the vue testing library.
   - These tests should be used to test general behaviour of components and not specific implementation details.
-  - I will be using a mocked REST backend to ensure reproducability for these tests
 - E2E testing with working backend and fully rendered page.
   - This should test the whole UX including properly rendered DOM elements etc.
 
 ## Linting and formatting
+
+Disclaimer: Linting currently doesn't work as I was unable to find a proper configuration that works with Tailwind, Vue and Prettier.
 
 Prettier is used for formatting. Simply enable `formatOnSave` in your vscode settings JSON.
 There is a linter script for ESLint but I still have to figure out some issues before it's ready to use.
