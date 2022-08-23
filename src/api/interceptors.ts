@@ -41,6 +41,8 @@ axios.interceptors.response.use(
         await forceLogout(err);
         return Promise.reject(err);
       }
+    } else {
+      console.log(err);
     }
   }
 );

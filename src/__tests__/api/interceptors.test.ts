@@ -13,7 +13,7 @@ const server = setupServer(
 
   rest.get('/api/resource/expired', (req, res, ctx) => {
     return res(ctx.status(401), ctx.json({ detail: 'Signature has expired' }));
-  })
+  }),
 
   rest.get('/api/failed/logout', (req, res, ctx) => {
     return res(ctx.status(401));

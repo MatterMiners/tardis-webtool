@@ -3,6 +3,7 @@ import { useUsers } from '@/store/userStore';
 import { render, screen, fireEvent } from '@testing-library/vue';
 import { createTestingPinia } from '@pinia/testing';
 import { AxiosError } from 'axios';
+import { test } from 'vitest';
 
 const pinia = createTestingPinia({});
 const loginStore = useUsers(pinia);

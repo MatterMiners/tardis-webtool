@@ -28,3 +28,21 @@ export async function getDroneData(): Promise<Result<DroneData[]>> {
     return makeError(error);
   }
 }
+
+export async function shutdownDrone(
+  drone_uuid: string
+): Promise<Result<string>> {
+  const userStore = useUsers();
+
+  if (!userStore.loggedIn) {
+    return makeStrError('Not logged in!');
+  }
+
+  try {
+    let resp = await axios.patch(`/api/tardis/resources/${drone_uuid}/drain`);
+    console.log('Drain successful:', resp.status);
+    return makeOk('Drone shut down');
+  } catch (error) {
+    return makeError(error);
+  }
+}
