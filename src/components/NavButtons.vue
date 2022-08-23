@@ -78,6 +78,7 @@ export default defineComponent({
       btnColorClass="yellowbtn"
       @click="$emit('update-clicked')"
       :disabled="!loggedIn"
+      id="update-button"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -109,6 +110,7 @@ export default defineComponent({
       btnColorClass="redbtn"
       @click="$emit('logoutClicked')"
       :disabled="!loggedIn"
+      id="logout-button"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

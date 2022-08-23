@@ -14,10 +14,10 @@ export default defineComponent({
   setup() {
     const userStore = useUsers();
     const droneStore = useDrones();
-    const { generalErrorMsg } = storeToRefs(useErrors());
+    const { generalErrorMsg, dronesErrorMsg } = storeToRefs(useErrors());
 
     const { loggedIn } = storeToRefs(userStore);
-    return { loggedIn, userStore, droneStore, generalErrorMsg };
+    return { loggedIn, userStore, droneStore, dronesErrorMsg, generalErrorMsg };
   },
   data() {
     return {
@@ -58,7 +58,20 @@ export default defineComponent({
     >
       WebTool
     </h1>
-    <p class="text-xl sm:mr-3 text-error">{{ generalErrorMsg }}</p>
+
+    <p
+      class="text-xl sm:mr-3 text-error text-left"
+      v-if="generalErrorMsg && dronesErrorMsg"
+    >
+      {{ generalErrorMsg }} <br />
+      {{ dronesErrorMsg }}
+    </p>
+    <p class="text-xl sm:mr-3 text-error text-left" v-else-if="generalErrorMsg">
+      {{ generalErrorMsg }}
+    </p>
+    <p class="text-xl sm:mr-3 text-error text-left" v-else>
+      {{ dronesErrorMsg }}
+    </p>
 
     <NavBarExpandButton
       @click="sideBarExpanded = !sideBarExpanded"
