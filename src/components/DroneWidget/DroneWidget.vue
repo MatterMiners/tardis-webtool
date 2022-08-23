@@ -5,6 +5,9 @@ import ColoredTextButton from '../util/ColoredTextButton.vue';
 import type { DroneData } from '@/api/apitypes';
 import DroneWidgetTable from './DroneWidgetTable.vue';
 import ColoredSlotButton from '../util/ColoredSlotButton.vue';
+import { shutdownDrone } from '@/api/resourcesCalls';
+import { useErrors } from '@/store/errorStore';
+import { unwrap, unwrapLog } from '@/util';
 
 export default defineComponent({
   props: {
@@ -20,12 +23,35 @@ export default defineComponent({
       collapse: true,
     };
   },
+  methods: {
+    drain() {
+      let errors = useErrors();
+      shutdownDrone(this.droneData.drone_uuid)
+        .then((resp) => {
+          try {
+            unwrap(resp);
+            this.droneData.state = 'DrainState';
+          } catch (err: Error) {
+            errors.setDronesError(err, 'Failed to drain drone');
+          }
+        })
+        .catch((err) => {
+          errors.setDronesError(err, 'Draining failed');
+        });
+    },
+  },
+  computed: {
+    disabled(): boolean {
+      return this.droneData.state === 'DrainState';
+    },
+  },
 });
 </script>
 
 <template>
-  <div class="relative h-min">
+  <div class="relative h-min" name="drone-widget">
     <button
+      name="widget-collapse-button"
       @click="collapse = !collapse"
       class="aspect-square flex absolute inset-x-0 -bottom-4 sm:-bottom-1 place-content-center mx-auto w-8 bg-slate-200 hover:bg-slate-300 rounded-full transition-colors duration-150"
     >
@@ -53,10 +79,17 @@ export default defineComponent({
             {{ droneData.drone_uuid }}
           </h2>
 
-          <h3 class="mt-1 font-semibold">{{ droneData.state }}</h3>
+          <h3 class="mt-1 font-semibold" name="drone-state">
+            {{ droneData.state }}
+          </h3>
         </div>
-        <ColoredSlotButton btnColorClass="redbtn"
-          ><svg
+        <ColoredSlotButton
+          btnColorClass="redbtn"
+          name="drain-button"
+          @click="drain"
+          :disabled="disabled"
+        >
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
             class="w-7 fill-white stroke-white"

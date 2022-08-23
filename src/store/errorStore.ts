@@ -45,5 +45,19 @@ export const useErrors = defineStore('errorStore', {
       }
       return '';
     },
+    authErrorMsg: (state) => {
+      let latestError = state.latestError.auth;
+      if (latestError) {
+        return latestError.msg;
+      }
+      return '';
+    },
+    dronesErrorMsg: (state) => {
+      let latestError = state.latestError.drones;
+      if (latestError) {
+        return latestError.msg;
+      }
+      return '';
+    },
   },
 });
