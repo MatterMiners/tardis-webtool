@@ -1,8 +1,29 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.node.json",
-  "include": ["vite.config.*"],
-  "compilerOptions": {
-    "composite": true,
-    "types": ["node"]
-  }
+    "extends": "@vue/tsconfig/tsconfig.node.json",
+    "include": [
+        "vite.config.*",
+        "**/*.ts",
+        "cypress/support/commands.js",
+        "./src/**/*.vue"
+    ],
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ]
+        },
+        "composite": true,
+        "target": "es5",
+        "lib": [
+            "es5",
+            "dom"
+        ],
+        "types": [
+            "cypress",
+            "node",
+            "vitest/globals",
+            "vitest/importMeta"
+        ]
+    }
 }

@@ -1,5 +1,12 @@
 <script lang="ts">
+import { clickOutsideDirective } from '@/directives';
 import { defineComponent, type PropType } from 'vue';
+
+interface SelectElement {
+  label: string;
+  type: string;
+  disabledWhen?: (input: string) => boolean;
+}
 
 export default defineComponent({
   data() {
@@ -8,9 +15,12 @@ export default defineComponent({
       typedFilter: '',
     };
   },
+  directives: {
+    clickOutside: clickOutsideDirective,
+  },
   props: {
     data: {
-      type: Object as PropType<{ label: string; type: string }[]>,
+      type: Object as PropType<SelectElement[]>,
       required: true,
     },
     label: {
@@ -31,15 +41,21 @@ export default defineComponent({
       this.typedFilter = '';
       return (payload: MouseEvent) => {};
     },
+    isDisabled(item: SelectElement): boolean {
+      return (
+        !this.typedFilter ||
+        (!!item.disabledWhen && item.disabledWhen(this.typedFilter))
+      );
+    },
   },
 });
 </script>
 
 <template>
   <!-- Something isn't right about the positioning of the dropdown menu -->
-  <div class="flex mx-1 shadow-sm">
+  <div class="flex mx-1 shadow-sm h-min">
     <div class="myselectcontainer" v-click-outside="collapse">
-      <button class="myselectbtn override-btn w-32" @click="toggle">
+      <button class="myselectbtn override-btn w-40" @click="toggle">
         <p>{{ label }}</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -52,12 +68,19 @@ export default defineComponent({
           />
         </svg>
       </button>
-      <ul v-if="expanded" class="myselectul top-[2.5rem] w-32">
-        <div :class="{ 'cursor-not-allowed': !typedFilter }">
+      <ul v-if="expanded" class="myselectul top-[2.5rem] w-40">
+        <div
+          v-for="item in data"
+          :class="{
+            'cursor-not-allowed': isDisabled(item),
+          }"
+          class="whitespace-nowrap"
+        >
           <li
-            v-for="item in data"
             class="myselectli"
-            :class="{ 'opacity-50 pointer-events-none': !typedFilter }"
+            :class="{
+              'opacity-50 pointer-events-none': isDisabled(item),
+            }"
             @click="submit(item.type)"
           >
             {{ item.label }}
@@ -74,9 +97,9 @@ export default defineComponent({
   </div>
 </template>
 
-<style lang="postcss">
+<style scoped lang="postcss">
 .override-btn {
-  @apply rounded-r-none  shadow-none !important;
+  @apply rounded-r-none shadow-none !important;
 }
 
 .override-text {

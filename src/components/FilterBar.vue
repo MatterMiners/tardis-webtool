@@ -8,11 +8,60 @@ import FilterWidget from './FilterWidgets/FilterWidget.vue';
 import SelectWidget from './util/SelectWidget.vue';
 import SelectTextCombo from './util/SelectTextCombo.vue';
 
-type filterTypes = 'state' | 'site' | 'machine' | 'droneuuid' | 'rruuid';
+type filterTypes =
+  | 'state'
+  | 'site'
+  | 'machine'
+  | 'droneuuid'
+  | 'rruuid'
+  | 'createdBefore'
+  | 'createdAfter'
+  | 'updatedBefore'
+  | 'updatedAfter';
 
 interface Filter {
   label: string;
   type: filterTypes;
+}
+
+function displayType(type: filterTypes): string {
+  switch (type) {
+    case 'state':
+      return 'State';
+    case 'site':
+      return 'Site';
+    case 'machine':
+      return 'Machine';
+    case 'droneuuid':
+      return 'Drone UUID';
+    case 'rruuid':
+      return 'RR UUID';
+    case 'createdBefore':
+      return 'Created Before';
+    case 'createdAfter':
+      return 'Created After';
+    case 'updatedBefore':
+      return 'Updated Before';
+    case 'updatedAfter':
+      return 'Updated After';
+    default:
+      return 'Unknown';
+  }
+}
+
+function notADate(input: string): boolean {
+  return isNaN(Date.parse(input));
+}
+
+/**
+ * Returns < 0 if a is before b, 0 if they are equal, and > 0 if a is after b.
+ * @param a {string} a date string in the format YYYY-MM-DDTHH:MM:SS.SSSZ
+ * @param b {string} a date string in the format YYYY-MM-DDTHH:MM:SS.SSSZ
+ */
+function getDateDiff(a: string, b: string): number {
+  const aDate = new Date(a);
+  const bDate = new Date(b);
+  return aDate.getTime() - bDate.getTime();
 }
 
 /**
@@ -32,6 +81,14 @@ function passesFilter(drone: DroneData, filter: Filter): boolean {
       return drone.drone_uuid == filter.label;
     case 'rruuid':
       return drone.remote_resource_uuid == filter.label;
+    case 'createdBefore':
+      return getDateDiff(drone.created, filter.label) < 0;
+    case 'createdAfter':
+      return getDateDiff(drone.created, filter.label) > 0;
+    case 'updatedBefore':
+      return getDateDiff(drone.updated, filter.label) < 0;
+    case 'updatedAfter':
+      return getDateDiff(drone.updated, filter.label) > 0;
   }
 }
 
@@ -88,18 +145,45 @@ export default defineComponent({
       droneStore,
     };
   },
+  props: {
+    shown: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data() {
     return {
       statesExpanded: false,
       filters: [] as Filter[],
       typedFilters: [
-        { label: 'Drone UUID', type: 'droneuuid' },
-        { label: 'RR UUID', type: 'rruuid' },
-      ] as { label: string; type: filterTypes }[],
+        { label: displayType('droneuuid'), type: 'droneuuid' },
+        { label: displayType('rruuid'), type: 'rruuid' },
+        {
+          label: displayType('createdBefore'),
+          type: 'createdBefore',
+          disabledWhen: notADate,
+        },
+        {
+          label: displayType('createdAfter'),
+          type: 'createdAfter',
+          disabledWhen: notADate,
+        },
+        {
+          label: displayType('updatedBefore'),
+          type: 'updatedBefore',
+          disabledWhen: notADate,
+        },
+        {
+          label: displayType('updatedAfter'),
+          type: 'updatedAfter',
+          disabledWhen: notADate,
+        },
+      ] as {
+        label: string;
+        type: filterTypes;
+        disabledWhen?: (input: string) => boolean;
+      }[],
     };
-  },
-  created() {
-    this.filterStore.fetchAll();
   },
   methods: {
     addFilter(filter: Filter) {
@@ -120,6 +204,9 @@ export default defineComponent({
     addTextFilter(data: { type: filterTypes; text: string }) {
       this.filters.push({ label: data.text, type: data.type });
     },
+    displayType(type: filterTypes): string {
+      return displayType(type);
+    },
   },
   computed: {
     /**
@@ -131,10 +218,21 @@ export default defineComponent({
       });
       return filteredDrones;
     },
+    numFilteredDrones() {
+      return this.filteredDrones.length;
+    },
+    numDrones() {
+      return this.droneData.length;
+    },
   },
   watch: {
     filteredDrones() {
       this.droneStore.filteredDrones = this.filteredDrones;
+    },
+    shown(newValue: boolean) {
+      if (newValue) {
+        this.filterStore.fetchAll();
+      }
     },
   },
   components: { FilterWidget, SelectWidget, SelectTextCombo },
@@ -142,45 +240,66 @@ export default defineComponent({
 </script>
 
 <template>
-  <section class="flex p-3 bg-white shadow-md sticky z-10 top-20 w-full">
+  <section
+    class="flex flex-col pt-3 pb-2 bg-white shadow-md sticky top-20 w-full items-center"
+  >
+    <div class="widget-container flex flex-col sm:flex-row items-center mx-2">
+      <h3 class="text-lg mr-3 mb-3 sm:mb-0 whitespace-nowrap">
+        <span class="font-semibold"
+          >{{ numFilteredDrones }} / {{ numDrones }}</span
+        >
+        Drones
+      </h3>
+      <!-- didn't find a way to specify type as a filterTypes but im too tired now -->
+      <div class="flex flex-wrap items-center justify-center">
+        <SelectTextCombo
+          label="Field"
+          :data="typedFilters"
+          @clicked-item="(data) => addTextFilter(data)"
+        />
+
+        <SelectWidget
+          label="Select State"
+          :data="allStates"
+          @clicked-item="
+            (filterLabel) => addFilter({ label: filterLabel, type: 'state' })
+          "
+        />
+        <SelectWidget
+          label="Select Site"
+          :data="allSites"
+          @clicked-item="
+            (filterLabel) => addFilter({ label: filterLabel, type: 'site' })
+          "
+        />
+        <SelectWidget
+          label="Select Machine"
+          :data="allMachineTypes"
+          @clicked-item="
+            (filterLabel) => addFilter({ label: filterLabel, type: 'machine' })
+          "
+        />
+      </div>
+    </div>
+
     <!-- filter widgets -->
-    <div class="flex items-center" v-for="filter in filters">
+    <div
+      class="flex flex-row flex-wrap justify-center items-center pt-1 mx-2 border-t sm:pt-0 sm:border-none"
+    >
       <FilterWidget
-        class="mx-1"
+        v-for="filter in filters"
+        class="m-1"
         :key="filter.label"
         :label="filter.label"
+        :type="displayType(filter.type)"
         @delete-filter="filters = deleteFilter(filter)"
-      />
-    </div>
-    <!-- didn't find a way to specify type as a filterTypes but im too tired now -->
-    <div class="flex ml-auto">
-      <SelectTextCombo
-        label="Field"
-        :data="typedFilters"
-        @clicked-item="(data) => addTextFilter(data)"
-      />
-
-      <SelectWidget
-        label="Select State"
-        :data="allStates"
-        @clicked-item="
-          (filterLabel) => addFilter({ label: filterLabel, type: 'state' })
-        "
-      />
-      <SelectWidget
-        label="Select Site"
-        :data="allSites"
-        @clicked-item="
-          (filterLabel) => addFilter({ label: filterLabel, type: 'site' })
-        "
-      />
-      <SelectWidget
-        label="Select Machine"
-        :data="allMachineTypes"
-        @clicked-item="
-          (filterLabel) => addFilter({ label: filterLabel, type: 'machine' })
-        "
       />
     </div>
   </section>
 </template>
+
+<style scoped lang="postcss">
+.widget-container * {
+  @apply m-1;
+}
+</style>

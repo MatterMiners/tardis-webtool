@@ -1,8 +1,11 @@
 import type { UserData } from '@/api/apitypes';
 import { loginUser, logoutUser } from '@/api/userCalls';
+import router from '@/router/router';
 import { unwrap, unwrapLog } from '@/util';
 import { defineStore } from 'pinia';
 import { useDrones } from './droneStore';
+import { useErrors } from './errorStore';
+import { useFilters } from './filterStore';
 
 // persistent because userData doesn't change much (at all) during a session and doesn't have to be pulled regularily.
 // But the user session has to be persistent across reloads
@@ -26,6 +29,8 @@ export const useUsers = defineStore('usersStore', {
       const user = unwrap(res);
       this.userData = user;
       this.loggedIn = true;
+
+      router.push({ name: 'dashboard' });
       console.log('Logged in!');
     },
     async logout() {
@@ -40,8 +45,11 @@ export const useUsers = defineStore('usersStore', {
       // TODO: Find a way to reset all stores at once
       this.$reset();
       useDrones().$reset();
+      useFilters().$reset();
 
       this.loggedIn = false;
+
+      router.push({ name: 'login' });
       console.log('User logged out');
     },
     /**
