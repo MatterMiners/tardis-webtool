@@ -15,6 +15,10 @@ export function makeFetchError<T>(error: any): Result<T> {
   return makeError(error);
 }
 
+/**
+ * Sets the loginError in the errorStore with an AxiosError
+ * @param error
+ */
 export function setAxiosLoginError(error: AxiosError) {
   let errMsg = '';
   if (error.response) {

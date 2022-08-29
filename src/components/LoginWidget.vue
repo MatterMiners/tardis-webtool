@@ -25,7 +25,7 @@ export default defineComponent({
     async onLogin() {
       try {
         await this.userStore.login(this.username, this.password);
-        this.errorStore.latestError.login.msg = '';
+        this.errorStore.setLoginError(Error(), '');
       } catch (error) {
         if (axios.isAxiosError(error)) {
           setAxiosLoginError(error);
@@ -36,7 +36,6 @@ export default defineComponent({
           );
         }
       }
-
       this.password = '';
     },
   },

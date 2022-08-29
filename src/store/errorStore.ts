@@ -5,7 +5,7 @@ interface prettyError {
   msg: string;
 }
 
-interface errorCategories {
+export interface errorCategories {
   login: prettyError; // for errors directly related to the login screen
   auth: prettyError; // for errors related to access token, refresh token, permissions
   drones: prettyError; // fetching or handling drones

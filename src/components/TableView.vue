@@ -62,6 +62,6 @@ thead th {
 }
 
 tbody th {
-  @apply font-normal p-1 px-3 border-slate-200 hover:bg-slate-50 hover:cursor-pointer myth;
+  @apply px-3 border-b border-slate-300 bg-white font-normal p-1 text-slate-500  hover:bg-slate-50 hover:cursor-pointer;
 }
 </style>
