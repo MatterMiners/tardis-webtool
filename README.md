@@ -55,7 +55,8 @@ for continuous cli testing with coverage results (cov results are also saved in 
 ```sh
 npm run test:ui
 ```
-for an additional ui webinterface.
+
+for an additional web GUI.
 To open cypress:
 
 ```sh
@@ -71,18 +72,14 @@ That means:
 - E2E testing with working backend and fully rendered page.
   - This should test the whole UX including properly rendered DOM elements etc.
 
-## Linting and formatting
-
-Disclaimer: Linting currently doesn't work as I was unable to find a proper configuration that works with Tailwind, Vue and Prettier.
+## Formatting
 
 Prettier is used for formatting. Simply enable `formatOnSave` in your vscode settings JSON.
-There is a linter script for ESLint but I still have to figure out some issues before it's ready to use.
+The extension however doesn't always work. That's why I recommend using the formatting scripts:
 
 ```sh
-npm run lint:[fix]
+npm run format:[check,fix]
 ```
-
-Use the fix variant to also automatically try to fix all fixable linting issues. Some linting error defaults were disabled as they are really hard to follow and slow down development too much. See [the config](./.eslintrc.json) for further details.
 
 ## Contributing
 
