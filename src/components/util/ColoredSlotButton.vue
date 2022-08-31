@@ -2,10 +2,10 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    props: {
-        btnColorClass: { type: String, required: true },
-        disabled: Boolean,
-    },
+  props: {
+    btnColorClass: { type: String, required: true },
+    disabled: Boolean,
+  },
 });
 </script>
 
