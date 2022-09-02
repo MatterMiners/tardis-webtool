@@ -29,7 +29,11 @@ export default defineComponent({
     :class="{ hidden: !expanded }"
   >
     <router-link :to="{ name: 'dronetable' }">
-      <ColoredSlotButton btnColorClass="greenbtn" :disabled="!loggedIn">
+      <ColoredSlotButton
+        btnColorClass="greenbtn"
+        :disabled="!loggedIn"
+        title="Drone Table"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
@@ -43,7 +47,11 @@ export default defineComponent({
     </router-link>
 
     <router-link :to="{ name: 'dashboard' }">
-      <ColoredSlotButton btnColorClass="greenbtn" :disabled="!loggedIn">
+      <ColoredSlotButton
+        btnColorClass="greenbtn"
+        :disabled="!loggedIn"
+        title="Drone Widgets"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
@@ -62,6 +70,7 @@ export default defineComponent({
       btnColorClass="yellowbtn"
       :disabled="!loggedIn"
       @click="$emit('toggle-filter')"
+      title="Filters"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -79,6 +88,7 @@ export default defineComponent({
       @click="$emit('update-clicked')"
       :disabled="!loggedIn"
       id="update-button"
+      title="Refresh Drones"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +102,11 @@ export default defineComponent({
     </ColoredSlotButton>
 
     <router-link :to="{ name: 'login' }">
-      <ColoredSlotButton btnColorClass="bluebtn" :disabled="loggedIn">
+      <ColoredSlotButton
+        btnColorClass="bluebtn"
+        :disabled="loggedIn"
+        title="Login"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
@@ -111,6 +125,7 @@ export default defineComponent({
       @click="$emit('logoutClicked')"
       :disabled="!loggedIn"
       id="logout-button"
+      title="Logout"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

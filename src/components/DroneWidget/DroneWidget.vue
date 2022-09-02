@@ -88,6 +88,7 @@ export default defineComponent({
           name="drain-button"
           @click="drain"
           :disabled="disabled"
+          title="Drain Drone"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
