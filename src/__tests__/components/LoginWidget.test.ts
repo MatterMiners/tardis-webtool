@@ -32,6 +32,8 @@ describe('LoginWidget', () => {
   });
 
   test('login button works (with generic error)', async () => {
+    // I have no Idea why this and the next tests are not working
+    // Somehow the element isn't rendered in the tests but is in the browser
     loginStore.login = async () => {
       throw new Error('failed login');
     };
